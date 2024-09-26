@@ -11,6 +11,7 @@
 - yarn add -D eslint-plugin-import eslint-import-resolver-typescript
 - yarn add -D prettier eslint-config-prettier eslint-plugin-prettier
 - yarn add @mui/material @emotion/react @emotion/styled
+- yarn add react-datepicker
 
 ## Installation of needed Packages (npm or yarn)
 

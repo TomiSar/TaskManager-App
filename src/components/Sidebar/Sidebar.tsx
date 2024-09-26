@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import { CreateTaskFrom } from '../TaskFrom/CreateTaskFrom';
+import { CreateTaskForm } from '../TaskForm/CreateTaskForm';
 import { Profile } from '../Profile/Profile';
 
 export function Sidebar() {
@@ -22,7 +22,7 @@ export function Sidebar() {
       }}
     >
       <Profile firstName="Chuck" lastName="Norris" />
-      <CreateTaskFrom />
+      <CreateTaskForm />
     </Grid>
   );
 }
