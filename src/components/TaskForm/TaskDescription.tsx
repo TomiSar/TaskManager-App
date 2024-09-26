@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import { TextFieldProps as TaskDescriptionProps } from '../../interfaces/TextField';
+import { TaskText as TaskDescriptionProps } from '../../interfaces/TaskText';
 
 export function TaskDescription({
   onChange = (e) => console.log(e),

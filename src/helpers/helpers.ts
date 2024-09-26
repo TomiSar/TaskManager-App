@@ -1,21 +1,22 @@
+import { Priority } from '../enums/Priority';
 import { Status } from '../enums/Status';
-import { TaskCounterStatusType } from '../interfaces/TaskCounterField';
+import { TaskCountStatusType } from '../interfaces/TaskCount';
 
-export const setTaskCounterBorderStatusColor = (
-  status: TaskCounterStatusType,
+export const setTaskCounterStatusBorderColor = (
+  status: TaskCountStatusType,
 ): string => {
   switch (status) {
     case Status.todo:
-      return 'error.light';
+      return 'error.main';
     case Status.inprogress:
-      return 'warning.light';
+      return 'warning.main';
     case Status.completed:
-      return 'success.light';
+      return 'success.main';
   }
 };
 
 export const setTaskCounterLabel = (
-  status: TaskCounterStatusType,
+  status: TaskCountStatusType,
 ): string => {
   switch (status) {
     case Status.todo:
@@ -24,5 +25,20 @@ export const setTaskCounterLabel = (
       return 'In Progress tasks';
     case Status.completed:
       return 'Completed tasks';
+  }
+};
+
+export const setTaskPriorityBorderColor = (
+  priority: string,
+): string => {
+  switch (priority) {
+    case Priority.low:
+      return 'success.light';
+    case Priority.medium:
+      return 'warning.light';
+    case Priority.high:
+      return 'error.light';
+    default:
+      return 'success.light'; // 'grey.900';
   }
 };

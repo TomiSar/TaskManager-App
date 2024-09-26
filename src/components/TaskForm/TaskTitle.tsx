@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import { TextFieldProps as TaskTitleProps } from '../../interfaces/TextField';
+import { TaskText as TaskTitleProps } from '../../interfaces/TaskText';
 
 export function TaskTitle({
   onChange = (e) => console.log(e),

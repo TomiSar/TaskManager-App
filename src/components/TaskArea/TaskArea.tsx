@@ -1,8 +1,10 @@
 import React from 'react';
 import { Box, Grid } from '@mui/material';
 import { format } from 'date-fns';
-import { TaskCounter } from '../TaskCounter/TaskCounter';
 import { Status } from '../../enums/Status';
+import { Priority } from '../../enums/Priority';
+import { TaskCounter } from '../TaskCounter/TaskCounter';
+import { Task } from '../Task/Task';
 
 export function TaskArea() {
   return (
@@ -48,8 +50,9 @@ export function TaskArea() {
           xs={10}
           md={8}
         >
-          <Box>Tasks Will come here</Box>
-          <Box>Tasks Will come here</Box>
+          <Task id="low" priority={Priority.low} />
+          <Task id="medium" priority={Priority.medium} />
+          <Task id="high" priority={Priority.high} />
         </Grid>
       </Grid>
     </Grid>

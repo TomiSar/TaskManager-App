@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import { DateField as TaskDueDateProps } from '../../interfaces/DateField';
+import { TaskDate as TaskDueDateProps } from '../../interfaces/TaskDate';
 import {
   LocalizationProvider,
   DesktopDatePicker,

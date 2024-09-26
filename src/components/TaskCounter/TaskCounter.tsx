@@ -1,8 +1,8 @@
 import React from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
-import { TaskCounterProps } from '../../interfaces/TaskCounterField';
+import { TaskCount as TaskCounterProps } from '../../interfaces/TaskCount';
 import {
-  setTaskCounterBorderStatusColor,
+  setTaskCounterStatusBorderColor,
   setTaskCounterLabel,
 } from '../../helpers/helpers';
 import { Status } from '../../enums/Status';
@@ -28,7 +28,7 @@ export function TaskCounter({
             width: '96px',
             height: '96px',
             marginBottom: '16px',
-            borderColor: `${setTaskCounterBorderStatusColor(status)}`,
+            borderColor: `${setTaskCounterStatusBorderColor(status)}`,
           }}
         >
           <Typography color="#ffffff" variant="h4">

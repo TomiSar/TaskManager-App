@@ -1,15 +1,15 @@
 import { SelectChangeEvent } from '@mui/material';
-import { Disabled } from './Disabled';
+import { TaskDisabled } from './TaskDisabled';
 
-export interface SelectItems {
+export interface TaskSelectItems {
   value: string;
   label: string;
 }
 
-export interface SelectFieldProps extends Disabled {
+export interface TaskSelect extends TaskDisabled {
   name?: string;
   label?: string;
   value?: string;
-  items?: SelectItems[];
+  items?: TaskSelectItems[];
   onChange?: (e: SelectChangeEvent) => void;
 }

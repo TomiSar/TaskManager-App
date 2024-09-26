@@ -1,11 +1,11 @@
 import { Status } from '../enums/Status';
 
-export type TaskCounterStatusType =
+export type TaskCountStatusType =
   | Status.todo
   | Status.inprogress
   | Status.completed;
 
-export interface TaskCounterProps {
+export interface TaskCount {
   count?: number;
-  status?: TaskCounterStatusType;
+  status?: TaskCountStatusType;
 }

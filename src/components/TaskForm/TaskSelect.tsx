@@ -6,7 +6,7 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import { SelectFieldProps as TaskSelectProps } from '../../interfaces/SelectField';
+import { TaskSelect as TaskSelectProps } from '../../interfaces/TaskSelect';
 
 export function TaskSelect({
   name = '',
