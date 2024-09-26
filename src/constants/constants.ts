@@ -11,8 +11,8 @@ export const taskStatus = [
     label: Status.inprogress,
   },
   {
-    value: Status.done,
-    label: Status.done,
+    value: Status.completed,
+    label: Status.completed,
   },
 ];
 
