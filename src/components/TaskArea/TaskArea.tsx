@@ -50,9 +50,22 @@ export function TaskArea() {
           xs={10}
           md={8}
         >
-          <Task id="low" priority={Priority.low} />
-          <Task id="medium" priority={Priority.medium} />
-          <Task id="high" priority={Priority.high} />
+          <Task
+            id="low"
+            priority={Priority.high}
+            title="Task1"
+            description="Lorem ipsum odor amet, consectetuer adipiscing elit. Dis eget amet dolor; dui libero imperdiet"
+          />
+          <Task
+            id="medium"
+            priority={Priority.medium}
+            title="Task2"
+          />
+          <Task
+            id="high"
+            priority={Priority.low}
+            title="Task3"
+          />
         </Grid>
       </Grid>
     </Grid>

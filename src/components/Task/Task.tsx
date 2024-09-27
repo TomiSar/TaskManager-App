@@ -4,6 +4,9 @@ import { TaskContent as TaskProps } from '../../interfaces/TaskContent';
 import { Status } from '../../enums/Status';
 import { Priority } from '../../enums/Priority';
 import { setTaskPriorityBorderColor } from '../../helpers/helpers';
+import { TaskHeader } from './TaskHeader';
+import { TaskDescription } from './TaskDescription';
+import { TaskFooter } from './TaskFooter';
 
 export function Task({
   title = 'Task Title',
@@ -31,11 +34,15 @@ export function Task({
         mb={4}
         p={2}
       >
-        Task
         {/* TODO */}
-        {/* Task Header */}
-        {/* Task Description */}
-        {/* Task Footer */}
+        <TaskHeader title={title} date={date} />
+        <TaskDescription description={description} />
+        <TaskFooter
+          id={id}
+          status={status}
+          onStatusChange={onStatusChange}
+          onClick={onClick}
+        />
       </Box>
     </div>
   );
