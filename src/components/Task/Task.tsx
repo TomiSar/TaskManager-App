@@ -14,7 +14,7 @@ export function Task({
   description = 'Task Description',
   priority = Priority.medium,
   id,
-  status = Status.completed,
+  priority: status = Status.completed,
   onStatusChange = (e) => console.log(e),
   onClick = (e) => console.log(e),
 }: TaskProps) {
@@ -35,7 +35,11 @@ export function Task({
         p={2}
       >
         {/* TODO */}
-        <TaskHeader title={title} date={date} />
+        <TaskHeader
+          title={title}
+          date={date}
+          priority={priority}
+        />
         <TaskDescription description={description} />
         <TaskFooter
           id={id}

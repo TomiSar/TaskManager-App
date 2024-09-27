@@ -42,3 +42,18 @@ export const setTaskPriorityBorderColor = (
       return 'success.light'; // 'grey.900';
   }
 };
+
+export const setHeaderPriorityFontColor = (
+  priority: string,
+): string => {
+  switch (priority) {
+    case Priority.low:
+      return 'success.dark';
+    case Priority.medium:
+      return 'warning.main';
+    case Priority.high:
+      return 'error.main';
+    default:
+      return 'success.dark';
+  }
+};
