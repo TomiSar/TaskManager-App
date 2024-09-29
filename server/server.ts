@@ -1,4 +1,8 @@
-import express, { Express, Request, Response } from 'express';
+import express, {
+  Express,
+  Request,
+  Response,
+} from 'express';
 import colors from 'colors';
 import dotenv from 'dotenv';
 
@@ -11,5 +15,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.listen(PORT, () =>
-  console.log(colors.rainbow(`Server running on port ${PORT}.`))
+  console.log(
+    colors.rainbow(`Server running on port ${PORT}.`),
+  ),
 );
