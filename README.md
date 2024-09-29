@@ -4,7 +4,7 @@
 
 - npx create-react-app todo-react --template typescript
 
-## npm packages
+## npm packages frontend taskmanager-app/client
 
 - yarn add i -D eslint
 - yarn create @eslint/config
