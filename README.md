@@ -2,10 +2,16 @@
 
 ## API endpoints
 
-
 ## Create react app, config ESLint (TypeScript)
 
 - npx create-react-app todo-react --template typescript
+
+## server .env file values
+
+- **MYSQL_USERNAME='MYSQL_USERNAME'**
+- **MYSQL_PASSWORD='MYSQL_PASSWORD'**
+- **MYSQL_DATABASE='MYSQL_DATABASE'**
+- **PORT=**
 
 ## npm packages backend taskmanager-app/server
 
@@ -18,7 +24,7 @@
 - yarn add dotenv
 - yarn add -D nodemon ts-node
 - yarn add -D eslint
-
+- yarn add typeorm reflect-metadata mysql2
 
 ## npm packages frontend taskmanager-app/client
 
@@ -48,6 +54,7 @@
 
 ## Documents
 
+- https://www.npmjs.com/package/typeorm
 - https://mui.com/material-ui/customization/default-theme/
 - https://mui.com/material-ui/guides/typescript/
 - https://mui.com/material-ui/
