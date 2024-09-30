@@ -1,6 +1,10 @@
 # TypeScript Masterclass 2024 Edition - React + NodeJS Project
 
-## API endpoints
+## API endpoints (Task)
+
+- http://localhost:5000/api/tasks (GET all Tasks)
+- http://localhost:5000/api/task (POST create new Task)
+
 
 ## Create react app, config ESLint (TypeScript)
 
@@ -25,6 +29,9 @@
 - yarn add -D nodemon ts-node
 - yarn add -D eslint
 - yarn add typeorm reflect-metadata mysql2
+- yarn add cors @types/cors body-parser
+ - yarn add class-transformer
+- yarn add express-validator
 
 ## npm packages frontend taskmanager-app/client
 
