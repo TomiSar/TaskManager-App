@@ -14,21 +14,22 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(cors());
 
-AppDataSource.initialize()
-  .then(() => {
+(async () => {
+  try {
+    await AppDataSource.initialize();
     app.listen(PORT, () =>
       console.log(
         colors.rainbow(`Server running on port ${PORT}.`),
       ),
     );
     console.log('Data Source has been initialized!');
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error(
-      'Error during Data Source initialization: ',
+      'Error during Data Source initialization:',
       err,
     );
-  });
+  }
+})();
 
 // Routes
 app.use('/api/tasks', taskRouter);

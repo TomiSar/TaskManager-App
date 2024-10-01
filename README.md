@@ -4,7 +4,7 @@
 
 - http://localhost:5000/api/tasks (GET all Tasks)
 - http://localhost:5000/api/task (POST create new Task)
-
+- http://localhost:5000/api/task/:id (PUT update Task by id)
 
 ## Create react app, config ESLint (TypeScript)
 
@@ -30,7 +30,7 @@
 - yarn add -D eslint
 - yarn add typeorm reflect-metadata mysql2
 - yarn add cors @types/cors body-parser
- - yarn add class-transformer
+- yarn add class-transformer
 - yarn add express-validator
 
 ## npm packages frontend taskmanager-app/client

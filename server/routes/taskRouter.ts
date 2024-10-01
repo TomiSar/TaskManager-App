@@ -1,16 +1,29 @@
 import { Router } from 'express';
 import {
-  createTask,
   getAllTasks,
+  createTask,
+  updateTask,
 } from '../controllers/taskController';
-import { createTaskValidator } from '../middleware/validationMiddleware';
+import {
+  createTaskValidator,
+  updateTaskValidator,
+} from '../middleware/validationMiddleware';
+import { handleValidationErrors } from '../utils/validationHandler';
 
 export const taskRouter: Router = Router();
 
-// Define the route for fetching all tasks
 taskRouter.route('/').get(getAllTasks);
-taskRouter.route('/').post(createTaskValidator, createTask);
-
-// taskRouter.get('/tasks', (req: Request, res: Response) => {
-//   res.send('Express + TypeScript Server');
-// });
+taskRouter
+  .route('/')
+  .post(
+    createTaskValidator,
+    handleValidationErrors,
+    createTask,
+  );
+taskRouter
+  .route('/:id')
+  .put(
+    updateTaskValidator,
+    handleValidationErrors,
+    updateTask,
+  );
