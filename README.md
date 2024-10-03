@@ -4,7 +4,7 @@
 
 - http://localhost:5000/api/tasks (GET all Tasks)
 - http://localhost:5000/api/task (POST create new Task)
-- http://localhost:5000/api/task/:id (PUT update Task by id)
+- http://localhost:5000/api/tasks (PUT update Task)
 
 ## Create react app, config ESLint (TypeScript)
 

@@ -14,7 +14,7 @@ export function Task({
   description = 'Task Description',
   priority = Priority.medium,
   id,
-  priority: status = Status.completed,
+  status = Status.completed,
   onStatusChange = (e) => console.log(e),
   onClick = (e) => console.log(e),
 }: TaskProps) {

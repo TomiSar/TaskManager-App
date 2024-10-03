@@ -1,8 +1,4 @@
-import {
-  ValidationChain,
-  body,
-  param,
-} from 'express-validator';
+import { ValidationChain, body } from 'express-validator';
 import { Priority } from '../enums/Priority';
 import { Status } from '../enums/Status';
 
@@ -51,7 +47,7 @@ export const createTaskValidator: ValidationChain[] = [
 ];
 
 export const updateTaskValidator: ValidationChain[] = [
-  param('id')
+  body('id')
     .not()
     .isEmpty()
     .withMessage('The task id is required')
@@ -61,11 +57,17 @@ export const updateTaskValidator: ValidationChain[] = [
   body('title')
     .optional()
     .isString()
+    .withMessage('The task title is required')
+    .trim()
+    .isString()
     .withMessage(
       'Task title needs to be valid text format',
     ),
   body('description')
     .optional()
+    .isString()
+    .withMessage('Task description is required')
+    .trim()
     .isString()
     .withMessage(
       'Task description needs to be valid text format',
@@ -78,7 +80,6 @@ export const updateTaskValidator: ValidationChain[] = [
       'Task priority can only be Low, Medium or High',
     ),
   body('status')
-    .optional()
     .trim()
     .isIn([
       Status.todo,

@@ -21,7 +21,7 @@ taskRouter
     createTask,
   );
 taskRouter
-  .route('/:id')
+  .route('/')
   .put(
     updateTaskValidator,
     handleValidationErrors,

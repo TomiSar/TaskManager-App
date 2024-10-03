@@ -9,10 +9,11 @@ import { format } from 'date-fns';
 import { Status } from '../../enums/Status';
 import { TaskCounter } from '../TaskCounter/TaskCounter';
 import { Task } from '../Task/Task';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { sendApiRequest } from '../../api/apiRequest';
 import { API_URL } from '../../constants/constants';
 import { TaskGetRequest as AllTasks } from '../../interfaces/TaskGetRequest';
+import { TaskPutRequest as UpdatedTask } from '../../interfaces/TaskPutRequest';
 
 export function TaskArea() {
   const { error, isLoading, data, refetch } = useQuery(
@@ -25,7 +26,34 @@ export function TaskArea() {
     },
   );
 
-  console.log(data);
+  const updateTaskMutation = useMutation(
+    (data: UpdatedTask) =>
+      sendApiRequest(API_URL, 'PUT', data),
+  );
+
+  function onStatusChangeHandler(
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string,
+  ) {
+    updateTaskMutation.mutate({
+      id,
+      status: e.target.checked
+        ? Status.inprogress
+        : Status.todo,
+    });
+  }
+
+  function markStatusCompleteHandler(
+    e:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLAnchorElement>,
+    id: string,
+  ) {
+    updateTaskMutation.mutate({
+      id,
+      status: Status.completed,
+    });
+  }
 
   return (
     <Grid item md={8} sx={{ px: 4 }}>
@@ -91,16 +119,19 @@ export function TaskArea() {
             ) : (
               Array.isArray(data) &&
               data.length > 0 &&
-              data.map((task) => {
+              data.map((task, index) => {
                 return task.status === Status.todo ||
                   task.status === Status.inprogress ? (
                   <Task
+                    key={index + task.priority}
                     id={task.id}
                     title={task.title}
                     date={new Date(task.date)}
                     description={task.description}
                     status={task.status}
                     priority={task.priority}
+                    onStatusChange={onStatusChangeHandler}
+                    onClick={markStatusCompleteHandler}
                   />
                 ) : (
                   false

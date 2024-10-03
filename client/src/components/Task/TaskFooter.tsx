@@ -36,7 +36,6 @@ export function TaskFooter({
       <Button
         sx={{
           color: 'common.white',
-          //   fontWeight: 'bold',
           border: '1px solid',
           boxShadow: 19,
         }}

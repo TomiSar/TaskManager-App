@@ -66,7 +66,9 @@ const updateTask = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const { id } = req.params;
+  const { id, title, description, priority, status } =
+    req.body;
+
   let task: Task | null;
 
   try {
@@ -87,14 +89,12 @@ const updateTask = async (
     return;
   }
 
-  const { title, description, priority, status } = req.body;
-
   const updatedTaskFields = plainToInstance(Task, {
     title: title || task.title,
     date: new Date(),
     description: description || task.description,
     priority: priority || task.priority,
-    status: status || task.status,
+    status,
   });
 
   try {
