@@ -6,6 +6,6 @@ export interface TaskGetRequest {
   title: string;
   date: string;
   description: string;
-  status: `${Status}`;
   priority: `${Priority}`;
+  status: `${Status}`;
 }

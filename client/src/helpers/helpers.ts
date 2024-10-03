@@ -1,6 +1,7 @@
 import { Priority } from '../enums/Priority';
 import { Status } from '../enums/Status';
 import { TaskCountStatusType } from '../interfaces/TaskCount';
+import { TaskGetRequest as Tasks } from '../interfaces/TaskGetRequest';
 
 export const setTaskCounterStatusBorderColor = (
   status: TaskCountStatusType,
@@ -56,4 +57,17 @@ export const setHeaderPriorityFontColor = (
     default:
       return 'success.dark';
   }
+};
+
+export const countTotalTasks = (
+  tasks: Tasks[],
+  status: TaskCountStatusType,
+): number => {
+  if (!Array.isArray(tasks)) return 0;
+
+  const totalTasks = tasks.filter((task) => {
+    return task.status === status;
+  });
+
+  return totalTasks.length;
 };

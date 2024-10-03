@@ -6,6 +6,6 @@ export type TaskCountStatusType =
   | Status.completed;
 
 export interface TaskCount {
-  count?: number;
   status?: TaskCountStatusType;
+  count?: number;
 }

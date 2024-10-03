@@ -14,6 +14,7 @@ import { sendApiRequest } from '../../api/apiRequest';
 import { API_URL } from '../../constants/constants';
 import { TaskGetRequest as AllTasks } from '../../interfaces/TaskGetRequest';
 import { TaskPutRequest as UpdatedTask } from '../../interfaces/TaskPutRequest';
+import { countTotalTasks } from '../../helpers/helpers';
 
 export function TaskArea() {
   const { error, isLoading, data, refetch } = useQuery(
@@ -79,14 +80,29 @@ export function TaskArea() {
           xs={12}
           mb={8}
         >
-          <TaskCounter count={1} status={Status.todo} />
           <TaskCounter
-            count={3}
-            status={Status.inprogress}
+            status={Status.todo}
+            count={
+              data
+                ? countTotalTasks(data, Status.todo)
+                : undefined
+            }
           />
           <TaskCounter
-            count={4}
+            status={Status.inprogress}
+            count={
+              data
+                ? countTotalTasks(data, Status.inprogress)
+                : undefined
+            }
+          />
+          <TaskCounter
             status={Status.completed}
+            count={
+              data
+                ? countTotalTasks(data, Status.completed)
+                : undefined
+            }
           />
         </Grid>
         <Grid

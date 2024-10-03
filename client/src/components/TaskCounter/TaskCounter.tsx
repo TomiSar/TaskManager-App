@@ -8,8 +8,8 @@ import {
 import { Status } from '../../enums/Status';
 
 export function TaskCounter({
-  count = 0,
   status = Status.todo,
+  count = 0,
 }: TaskCounterProps) {
   return (
     <>
