@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  Alert,
+  AlertTitle,
   Box,
   Button,
+  LinearProgress,
   Stack,
   Typography,
 } from '@mui/material';
@@ -10,9 +13,13 @@ import { TaskDescription } from './TaskDescription';
 import { TaskDueDate } from './TaskDueDate';
 import { TaskSelect } from './TaskSelect';
 import {
+  API_URL,
   taskPriority,
   taskStatus,
 } from '../../constants/constants';
+import { useMutation } from 'react-query';
+import { sendApiRequest } from '../../api/apiRequest';
+import { TaskPostRequest as CreateNewTask } from '../../interfaces/TaskPostRequest';
 
 export function CreateTaskForm() {
   const [title, setTitle] = useState<string | undefined>(
@@ -28,17 +35,43 @@ export function CreateTaskForm() {
   const [priority, setPriority] = useState<string>(
     taskPriority[1].value,
   );
+  const [showSuccess, setShowSuccess] =
+    useState<boolean>(false);
+
+  // Create task mutation
+  const createTaskMutation = useMutation(
+    (data: CreateNewTask) =>
+      sendApiRequest(API_URL, 'POST', data),
+  );
 
   function createTaskHandler() {
     if (!title || !description || !date) {
       return;
     }
-    console.log(title);
-    console.log(description);
-    console.log(date);
-    console.log(status);
-    console.log(priority);
+
+    const newTask = {
+      title,
+      description,
+      date: date.toString(),
+      status,
+      priority,
+    };
+    createTaskMutation.mutate(newTask);
   }
+
+  useEffect(() => {
+    if (createTaskMutation.isSuccess) {
+      setShowSuccess(true);
+    }
+
+    const successTimeout = setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(successTimeout);
+    };
+  }, [createTaskMutation.isSuccess]);
 
   return (
     <Box
@@ -51,19 +84,34 @@ export function CreateTaskForm() {
       px={4}
       my={6}
     >
+      {showSuccess && (
+        <Alert
+          sx={{
+            width: '100%',
+            marginBottom: '16px',
+          }}
+          severity="success"
+        >
+          <AlertTitle>Success</AlertTitle>
+          Task created successfully
+        </Alert>
+      )}
       <Typography component="h2" variant="h6" mb={2}>
         Create new task
       </Typography>
       <Stack sx={{ width: '100%' }} spacing={2}>
         <TaskTitle
           onChange={(e) => setTitle(e.target.value)}
+          disabled={createTaskMutation.isLoading}
         />
         <TaskDescription
           onChange={(e) => setDescription(e.target.value)}
+          disabled={createTaskMutation.isLoading}
         />
         <TaskDueDate
           date={date}
           onChange={(date) => setDate(date)}
+          disabled={createTaskMutation.isLoading}
         />
 
         <Stack
@@ -72,29 +120,39 @@ export function CreateTaskForm() {
           direction="row"
         >
           <TaskSelect
-            name="status"
             label="Status"
+            name="status"
             value={status}
             onChange={(e) =>
               setStatus(e.target.value as string)
             }
             items={taskStatus}
+            disabled={createTaskMutation.isLoading}
           />
           <TaskSelect
-            name="priority"
             label="Priority"
+            name="priority"
             value={priority}
             onChange={(e) =>
               setPriority(e.target.value as string)
             }
             items={taskPriority}
+            disabled={createTaskMutation.isLoading}
           />
         </Stack>
+        {createTaskMutation.isLoading && <LinearProgress />}
         <Button
           variant="outlined"
           size="large"
           fullWidth
           onClick={createTaskHandler}
+          disabled={
+            !title ||
+            !description ||
+            !date ||
+            !status ||
+            !priority
+          }
         >
           Create new task
         </Button>

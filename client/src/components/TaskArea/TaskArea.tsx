@@ -1,12 +1,32 @@
 import React from 'react';
-import { Box, Grid } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Grid,
+  LinearProgress,
+} from '@mui/material';
 import { format } from 'date-fns';
 import { Status } from '../../enums/Status';
-import { Priority } from '../../enums/Priority';
 import { TaskCounter } from '../TaskCounter/TaskCounter';
 import { Task } from '../Task/Task';
+import { useQuery } from 'react-query';
+import { sendApiRequest } from '../../api/apiRequest';
+import { API_URL } from '../../constants/constants';
+import { TaskGetRequest as AllTasks } from '../../interfaces/TaskGetRequest';
 
 export function TaskArea() {
+  const { error, isLoading, data, refetch } = useQuery(
+    'tasks',
+    async () => {
+      return await sendApiRequest<AllTasks[]>(
+        API_URL,
+        'GET',
+      );
+    },
+  );
+
+  console.log(data);
+
   return (
     <Grid item md={8} sx={{ px: 4 }}>
       <Box mb={8} px={4}>
@@ -50,22 +70,44 @@ export function TaskArea() {
           xs={10}
           md={8}
         >
-          <Task
-            id="low"
-            priority={Priority.high}
-            title="Task1"
-            description="Lorem ipsum odor amet, consectetuer adipiscing elit. Dis eget amet dolor; dui libero imperdiet"
-          />
-          <Task
-            id="medium"
-            priority={Priority.medium}
-            title="Task2"
-          />
-          <Task
-            id="high"
-            priority={Priority.low}
-            title="Task3"
-          />
+          <>
+            {error && (
+              <Alert severity="error">
+                Error fetching tasks data
+              </Alert>
+            )}
+
+            {!error &&
+              Array.isArray(data) &&
+              data.length === 0 && (
+                <Alert severity="warning">
+                  You do not have created any tasks. Start
+                  by creating a new Tasks.
+                </Alert>
+              )}
+
+            {isLoading ? (
+              <LinearProgress />
+            ) : (
+              Array.isArray(data) &&
+              data.length > 0 &&
+              data.map((task) => {
+                return task.status === Status.todo ||
+                  task.status === Status.inprogress ? (
+                  <Task
+                    id={task.id}
+                    title={task.title}
+                    date={new Date(task.date)}
+                    description={task.description}
+                    status={task.status}
+                    priority={task.priority}
+                  />
+                ) : (
+                  false
+                );
+              })
+            )}
+          </>
         </Grid>
       </Grid>
     </Grid>

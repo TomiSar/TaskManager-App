@@ -1,6 +1,9 @@
 import { Priority } from '../enums/Priority';
 import { Status } from '../enums/Status';
 
+// ENDPOINTS
+export const API_URL = 'http://localhost:5000/api/tasks';
+
 export const taskStatus = [
   {
     value: Status.todo,

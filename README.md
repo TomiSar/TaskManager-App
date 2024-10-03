@@ -40,6 +40,8 @@
 - yarn add -D eslint-plugin-import eslint-import-resolver-typescript
 - yarn add -D prettier eslint-config-prettier eslint-plugin-prettier
 - yarn add @mui/material @emotion/react @emotion/styled
+- yarn add react-query
+- yarn add @tanstack/react-query
 
 ## Installation of needed Packages (npm or yarn)
 
@@ -68,3 +70,5 @@
 - https://eslint.org/docs/latest/use/getting-started
 - https://eslint.org/docs/latest/use/configure/configuration-files-deprecated
 - https://create-react-app.dev/docs/adding-typescript/
+- https://tanstack.com/query/latest/docs/framework/react/overview
+- https://tanstack.com/query/latest/docs/framework/react/guides/queries
