@@ -9,7 +9,7 @@ import { TaskDescription } from './TaskDescription';
 import { TaskFooter } from './TaskFooter';
 
 export function Task({
-  title = 'Task Title',
+  title,
   date = new Date(),
   description = 'Task Description',
   priority = Priority.medium,
@@ -17,6 +17,7 @@ export function Task({
   status = Status.completed,
   onStatusChange = (e) => console.log(e),
   onClick = (e) => console.log(e),
+  onDelete = (e) => console.log(e),
 }: TaskProps) {
   return (
     <div>
@@ -34,7 +35,6 @@ export function Task({
         mb={4}
         p={2}
       >
-        {/* TODO */}
         <TaskHeader
           title={title}
           date={date}
@@ -46,6 +46,7 @@ export function Task({
           status={status}
           onStatusChange={onStatusChange}
           onClick={onClick}
+          onDelete={onDelete}
         />
       </Box>
     </div>

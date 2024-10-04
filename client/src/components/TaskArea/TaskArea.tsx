@@ -37,6 +37,10 @@ export function TaskArea() {
       sendApiRequest(API_URL, 'PUT', data),
   );
 
+  const deleteTaskMutation = useMutation((id: string) =>
+    sendApiRequest<void>(`${API_URL}/${id}`, 'DELETE'),
+  );
+
   function onStatusChangeHandler(
     e: React.ChangeEvent<HTMLInputElement>,
     id: string,
@@ -61,6 +65,16 @@ export function TaskArea() {
     });
   }
 
+  function handleDeleteTask(id: string) {
+    if (
+      window.confirm(
+        `Are you sure you want to delete Task: ${id} (This can't be undone)?`,
+      )
+    ) {
+      deleteTaskMutation.mutate(id);
+    }
+  }
+
   useEffect(() => {
     refetch();
   }, [tasksUpdatedContext.updated]);
@@ -69,7 +83,13 @@ export function TaskArea() {
     if (updateTaskMutation.isSuccess) {
       tasksUpdatedContext.toggle();
     }
-  }, [updateTaskMutation.isSuccess]);
+    if (deleteTaskMutation.isSuccess) {
+      tasksUpdatedContext.toggle();
+    }
+  }, [
+    updateTaskMutation.isSuccess,
+    deleteTaskMutation.isSuccess,
+  ]);
 
   return (
     <Grid item md={8} sx={{ px: 4 }}>
@@ -163,6 +183,7 @@ export function TaskArea() {
                     priority={task.priority}
                     onStatusChange={onStatusChangeHandler}
                     onClick={markStatusCompleteHandler}
+                    onDelete={handleDeleteTask}
                   />
                 ) : (
                   false

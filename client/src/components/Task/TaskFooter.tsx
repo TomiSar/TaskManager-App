@@ -13,6 +13,7 @@ export function TaskFooter({
   status,
   onStatusChange = (e) => console.log(e),
   onClick = (e) => console.log(e),
+  onDelete = (e) => console.log(e),
 }: TaskFooterProps) {
   return (
     <Box
@@ -45,6 +46,20 @@ export function TaskFooter({
         onClick={(e) => onClick(e, id)}
       >
         Mark Complete
+      </Button>
+      <Button
+        sx={{
+          color: 'common.white',
+          border: '1px solid',
+          boxShadow: 19,
+          width: '25%',
+        }}
+        variant="contained"
+        color="error"
+        size="small"
+        onClick={() => onDelete(id)}
+      >
+        Delete task
       </Button>
     </Box>
   );

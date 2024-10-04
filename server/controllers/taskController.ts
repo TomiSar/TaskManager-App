@@ -60,7 +60,7 @@ const createTask = async (
 
 // UPDATE TASK
 // @desc   Update existing Task
-// @route  POST  /api/tasks/:id
+// @route  POST  /api/tasks
 // @access Public
 const updateTask = async (
   req: Request,
@@ -118,4 +118,43 @@ const updateTask = async (
   }
 };
 
-export { getAllTasks, createTask, updateTask };
+// DELETE TASK
+// @desc   DELETE existing Task
+// @route  DELETE /api/tasks/:id
+// @access Public
+const deleteTask = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { id } = req.params;
+  let task: Task | null;
+
+  try {
+    task = await AppDataSource.getRepository(Task).findOne({
+      where: { id },
+    });
+  } catch (errors) {
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error' });
+    return;
+  }
+
+  if (!task) {
+    res.status(404).json({
+      error: 'The task with given ID does not exist',
+    });
+    return;
+  }
+
+  try {
+    await AppDataSource.getRepository(Task).delete({ id });
+    res.status(200).json({
+      message: 'Task deleted successfully',
+    });
+  } catch (error) {
+    res.status(500).json({ err: 'Internal server error' });
+  }
+};
+
+export { getAllTasks, createTask, updateTask, deleteTask };

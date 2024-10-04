@@ -4,21 +4,24 @@ function returnCorrectRequest(
   method: Method,
   data: unknown,
 ): RequestInit {
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
   if (method === 'GET') {
     return {
       method: method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
     };
   }
 
+  const body =
+    method === 'DELETE' ? undefined : JSON.stringify(data);
+
   return {
     method: method,
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    body: body,
+    headers,
   };
 }
 
@@ -33,7 +36,10 @@ export async function sendApiRequest<T>(
   );
 
   if (!response.ok) {
-    const message = `An error occurred: ${response.status}`;
+    const error = await response.json().catch(() => null);
+    const message =
+      error?.message ||
+      `An error occurred: ${response.status}`;
     throw new Error(message);
   }
 

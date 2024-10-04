@@ -1,4 +1,8 @@
-import { ValidationChain, body } from 'express-validator';
+import {
+  ValidationChain,
+  body,
+  param,
+} from 'express-validator';
 import { Priority } from '../enums/Priority';
 import { Status } from '../enums/Status';
 
@@ -89,4 +93,14 @@ export const updateTaskValidator: ValidationChain[] = [
     .withMessage(
       'Task status can only be ToDo, InProgress or Completed',
     ),
+];
+
+export const deleteTaskValidator: ValidationChain[] = [
+  param('id')
+    .not()
+    .isEmpty()
+    .withMessage('The task id is required')
+    .trim()
+    .isUUID()
+    .withMessage('Task id needs to be valid UUID format'),
 ];

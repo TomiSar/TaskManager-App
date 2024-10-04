@@ -13,4 +13,6 @@ export interface TaskContentFooter {
       | React.MouseEvent<HTMLAnchorElement>,
     id: string,
   ) => void;
+
+  onDelete?: (id: string) => void;
 }

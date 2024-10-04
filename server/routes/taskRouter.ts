@@ -3,10 +3,12 @@ import {
   getAllTasks,
   createTask,
   updateTask,
+  deleteTask,
 } from '../controllers/taskController';
 import {
   createTaskValidator,
   updateTaskValidator,
+  deleteTaskValidator,
 } from '../middleware/validationMiddleware';
 import { handleValidationErrors } from '../utils/validationHandler';
 
@@ -26,4 +28,12 @@ taskRouter
     updateTaskValidator,
     handleValidationErrors,
     updateTask,
+  );
+
+taskRouter
+  .route('/:id')
+  .delete(
+    deleteTaskValidator,
+    handleValidationErrors,
+    deleteTask,
   );
