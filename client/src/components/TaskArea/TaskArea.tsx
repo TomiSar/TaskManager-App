@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Alert,
   Box,
@@ -14,9 +14,14 @@ import { sendApiRequest } from '../../api/apiRequest';
 import { API_URL } from '../../constants/constants';
 import { TaskGetRequest as AllTasks } from '../../interfaces/TaskGetRequest';
 import { TaskPutRequest as UpdatedTask } from '../../interfaces/TaskPutRequest';
+import { TaskStatusChangedContext } from '../../context';
 import { countTotalTasks } from '../../helpers/helpers';
 
 export function TaskArea() {
+  const tasksUpdatedContext = useContext(
+    TaskStatusChangedContext,
+  );
+
   const { error, isLoading, data, refetch } = useQuery(
     'tasks',
     async () => {
@@ -55,6 +60,16 @@ export function TaskArea() {
       status: Status.completed,
     });
   }
+
+  useEffect(() => {
+    refetch();
+  }, [tasksUpdatedContext.updated]);
+
+  useEffect(() => {
+    if (updateTaskMutation.isSuccess) {
+      tasksUpdatedContext.toggle();
+    }
+  }, [updateTaskMutation.isSuccess]);
 
   return (
     <Grid item md={8} sx={{ px: 4 }}>

@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {
   Alert,
   AlertTitle,
@@ -18,6 +22,7 @@ import {
   taskStatus,
 } from '../../constants/constants';
 import { useMutation } from 'react-query';
+import { TaskStatusChangedContext } from '../../context';
 import { sendApiRequest } from '../../api/apiRequest';
 import { TaskPostRequest as CreateNewTask } from '../../interfaces/TaskPostRequest';
 
@@ -37,6 +42,10 @@ export function CreateTaskForm() {
   );
   const [showSuccess, setShowSuccess] =
     useState<boolean>(false);
+
+  const tasksUpdatedContext = useContext(
+    TaskStatusChangedContext,
+  );
 
   // Create task mutation
   const createTaskMutation = useMutation(
@@ -64,6 +73,7 @@ export function CreateTaskForm() {
   useEffect(() => {
     if (createTaskMutation.isSuccess) {
       setShowSuccess(true);
+      tasksUpdatedContext.toggle();
     }
 
     const successTimeout = setTimeout(() => {
