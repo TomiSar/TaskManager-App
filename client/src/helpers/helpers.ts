@@ -75,6 +75,13 @@ export const countTotalTasks = (
   return totalTasks.length;
 };
 
+export const setAvatarLetters = (
+  firstName: string,
+  lastName: string,
+): string => {
+  return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+};
+
 export const convertHexToRgbColor = (hex: string) => {
   const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
   hex = hex.replace(shorthandRegex, function (m, r, g, b) {

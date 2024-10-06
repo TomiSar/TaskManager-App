@@ -7,7 +7,7 @@ export function customTheme(): Theme {
       primary: {
         main: '#a855f7cc',
         light: '#a855f7cc',
-        dark: '#a855f747',
+        dark: '	#7f00ff',
       },
       common: {
         black: '#000',
