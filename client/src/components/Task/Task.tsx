@@ -20,35 +20,34 @@ export function Task({
   onDelete = (e) => console.log(e),
 }: TaskProps) {
   return (
-    <div>
-      <Box
-        sx={{
-          display: 'flex',
-          width: '100%',
-          justifyContent: 'flex-start',
-          flexDirection: 'column',
-          backgroundColor: 'background.paper',
-          borderRadius: '8px',
-          border: '1px solid',
-          borderColor: setTaskPriorityBorderColor(priority),
-        }}
-        mb={4}
-        p={2}
-      >
-        <TaskHeader
-          title={title}
-          date={date}
-          priority={priority}
-        />
-        <TaskDescription description={description} />
-        <TaskFooter
-          id={id}
-          status={status}
-          onStatusChange={onStatusChange}
-          onClick={onClick}
-          onDelete={onDelete}
-        />
-      </Box>
-    </div>
+    <Box
+      data-testid="task-box"
+      sx={{
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'flex-start',
+        flexDirection: 'column',
+        backgroundColor: 'background.paper',
+        borderRadius: '8px',
+        border: '1px solid',
+        borderColor: setTaskPriorityBorderColor(priority),
+      }}
+      mb={4}
+      p={2}
+    >
+      <TaskHeader
+        title={title}
+        date={date}
+        priority={priority}
+      />
+      <TaskDescription description={description} />
+      <TaskFooter
+        id={id}
+        status={status}
+        onStatusChange={onStatusChange}
+        onClick={onClick}
+        onDelete={onDelete}
+      />
+    </Box>
   );
 }

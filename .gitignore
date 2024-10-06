@@ -7,10 +7,10 @@ dist
 .pnp.js
 
 # testing
-/coverage
+coverage
 
 # production
-/build
+build
 
 # misc
 /server/.env

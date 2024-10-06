@@ -2,6 +2,7 @@ import { Priority } from '../enums/Priority';
 import { Status } from '../enums/Status';
 import { TaskCountStatusType } from '../interfaces/TaskCount';
 import { TaskGetRequest as Tasks } from '../interfaces/TaskGetRequest';
+import { customTheme } from '../theme/customTheme';
 
 export const setTaskCounterStatusBorderColor = (
   status: TaskCountStatusType,
@@ -32,30 +33,32 @@ export const setTaskCounterLabel = (
 export const setTaskPriorityBorderColor = (
   priority: string,
 ): string => {
+  const theme = customTheme();
   switch (priority) {
     case Priority.low:
-      return 'success.light';
+      return theme.palette.success.light;
     case Priority.medium:
-      return 'warning.light';
+      return theme.palette.warning.light;
     case Priority.high:
-      return 'error.light';
+      return theme.palette.error.light;
     default:
-      return 'success.light'; // 'grey.900';
+      return theme.palette.success.light;
   }
 };
 
 export const setHeaderPriorityFontColor = (
   priority: string,
 ): string => {
+  const theme = customTheme();
   switch (priority) {
     case Priority.low:
-      return 'success.dark';
+      return theme.palette.success.main;
     case Priority.medium:
-      return 'warning.main';
+      return theme.palette.warning.main;
     case Priority.high:
-      return 'error.main';
+      return theme.palette.error.main;
     default:
-      return 'success.dark';
+      return theme.palette.success.main;
   }
 };
 
@@ -70,4 +73,17 @@ export const countTotalTasks = (
   });
 
   return totalTasks.length;
+};
+
+export const convertHexToRgbColor = (hex: string) => {
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
+
+  const result =
+    /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})`
+    : hex;
 };

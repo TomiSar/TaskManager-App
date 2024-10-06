@@ -59,7 +59,7 @@ export function TaskFooter({
         size="small"
         onClick={() => onDelete(id)}
       >
-        Delete task
+        Delete Task
       </Button>
     </Box>
   );

@@ -5,6 +5,7 @@
 - http://localhost:5000/api/tasks (GET all Tasks)
 - http://localhost:5000/api/task (POST create new Task)
 - http://localhost:5000/api/tasks (PUT update Task)
+- http://localhost:5000/api/tasks/{id} (DELETE Task by id)
 
 ## Create react app, config ESLint (TypeScript)
 
@@ -42,6 +43,9 @@
 - yarn add @mui/material @emotion/react @emotion/styled
 - yarn add react-query
 - yarn add @tanstack/react-query
+- yarn add @testing-library/jest-dom @testing-library/react @testing-library/user-event
+- yarn add -D @typescript-eslint/parser @typescript-eslint/eslint-plugin @types/jest
+- yarn add -D @testing-library/dom jest jest-environment-jsdom ts-jest ts-node typescript
 
 ## Installation of needed Packages (npm or yarn)
 
@@ -50,16 +54,19 @@
 - **npm [NPM](https://nodejs.org/en/download/package-manager/)**
 - npm i
 
-## Run backend server (localhost:5000)
+## Run backend server scripts (localhost:5000)
 
-- npm run build
-- npm run clean
-- npm run dev
-- npm run server
+- yarn build
+- yarn clean
+- yarn dev
+- yarn server
 
-## Run frontend client (localhost:3000)
+## Run frontend client scripts (localhost:3000)
 
-- npm run client
+- yarn client
+- yarn test (watch mode)
+- yarn test:coverage (see coverage)
+- yarn test:watch (watch mode)
 
 ## Documents
 
