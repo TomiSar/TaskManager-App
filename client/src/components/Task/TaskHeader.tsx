@@ -6,7 +6,7 @@ import { setHeaderPriorityFontColor } from '../../helpers/helpers';
 import { format } from 'date-fns';
 
 export function TaskHeader({
-  title = 'Task Header title',
+  title = 'Task Header Title',
   date = new Date(),
   priority = Priority.low,
 }: TaskHeaderProps) {

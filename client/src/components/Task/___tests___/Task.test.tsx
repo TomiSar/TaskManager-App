@@ -26,15 +26,33 @@ const taskTestProps = {
   onDelete: mockOnClickDelete,
 };
 
-describe('Task Component Test Suite', () => {
+const renderTask = (props = {}) => {
+  const combinedProps = {
+    ...taskTestProps,
+    ...props,
+  };
+  return render(<Task {...combinedProps} />);
+};
+
+const taskText = {
+  inProgress: 'In Progress',
+  deleteTask: 'Delete Task',
+  mediumPriority: 'Medium priority',
+};
+
+describe('Task Component Test', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it.skip('renders correct props to child components', () => {
-    render(<Task {...taskTestProps} />);
+    renderTask();
 
     expect(
       screen.getByText(taskTestProps.title),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Medium priority'),
+      screen.getByText(taskText.mediumPriority),
     ).toBeInTheDocument();
     expect(
       screen.getByText(format(taskTestProps.date, 'PPP')),
@@ -43,15 +61,17 @@ describe('Task Component Test Suite', () => {
       screen.getByText(taskTestProps.description),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('In Progress'),
+      screen.getByText(taskText.inProgress),
     ).toBeInTheDocument();
   });
 
-  it('triggers onStatusChange when status changes', () => {
-    render(<Task {...taskTestProps} />);
+  it('triggers onStatusChange when status is changed from switch', () => {
+    renderTask();
 
-    const button = screen.getByRole('checkbox');
-    fireEvent.click(button);
+    const changeStatusSwitch = screen.getByLabelText(
+      taskText.inProgress,
+    );
+    fireEvent.click(changeStatusSwitch);
 
     expect(mockOnStatusChange).toHaveBeenCalledWith(
       expect.any(Object),
@@ -60,10 +80,11 @@ describe('Task Component Test Suite', () => {
   });
 
   it('triggers onDelete when the Delete Task button is clicked', () => {
-    render(<Task {...taskTestProps} />);
+    renderTask();
 
-    const deleteTaskButton =
-      screen.getByText('Delete Task');
+    const deleteTaskButton = screen.getByText(
+      taskText.deleteTask,
+    );
     fireEvent.click(deleteTaskButton);
 
     expect(mockOnClickDelete).toHaveBeenCalledWith(
@@ -71,48 +92,32 @@ describe('Task Component Test Suite', () => {
     );
   });
 
-  it('renders the correct success border color when priority is Low', () => {
-    render(
-      <Task {...taskTestProps} priority={Priority.low} />,
-    );
+  const taskBorderColorTestsByPriority = [
+    {
+      priority: Priority.low,
+      expectedColor: customTheme().palette.success.light,
+    },
+    {
+      priority: Priority.medium,
+      expectedColor: customTheme().palette.warning.light,
+    },
+    {
+      priority: Priority.high,
+      expectedColor: customTheme().palette.error.light,
+    },
+  ];
 
-    const taskBox = screen.getByTestId('task-box');
-    const expectedColorRgb =
-      customTheme().palette.success.light;
+  taskBorderColorTestsByPriority.forEach(
+    ({ priority, expectedColor }) => {
+      it(`renders the correct border color when priority is ${priority}`, () => {
+        renderTask({ priority });
 
-    expect(
-      window.getComputedStyle(taskBox).borderColor,
-    ).toBe(expectedColorRgb);
-  });
+        const taskBox = screen.getByTestId('task-box');
 
-  it('renders the correct warning border color when priority is Medium', () => {
-    render(
-      <Task
-        {...taskTestProps}
-        priority={Priority.medium}
-      />,
-    );
-
-    const taskBox = screen.getByTestId('task-box');
-    const expectedColorRgb =
-      customTheme().palette.warning.light;
-
-    expect(
-      window.getComputedStyle(taskBox).borderColor,
-    ).toBe(expectedColorRgb);
-  });
-
-  it('renders the correct warning border color when priority is High', () => {
-    render(
-      <Task {...taskTestProps} priority={Priority.high} />,
-    );
-
-    const taskBox = screen.getByTestId('task-box');
-    const expectedColorRgb =
-      customTheme().palette.error.light;
-
-    expect(
-      window.getComputedStyle(taskBox).borderColor,
-    ).toBe(expectedColorRgb);
-  });
+        expect(
+          window.getComputedStyle(taskBox).borderColor,
+        ).toBe(expectedColor);
+      });
+    },
+  );
 });

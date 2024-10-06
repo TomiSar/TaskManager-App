@@ -7,61 +7,71 @@ import {
 import { TaskFooter } from '../TaskFooter';
 import { Status } from '../../../enums/Status';
 
-describe('TaskFooter Component Tests', () => {
-  const mockOnStatusChange = jest.fn();
-  const mockOnClickMarkUpdate = jest.fn();
-  const mockOnClickDelete = jest.fn();
+const mockOnStatusChange = jest.fn();
+const mockOnClickMarkUpdate = jest.fn();
+const mockOnClickDelete = jest.fn();
 
-  const taskFooterTestProps = {
-    id: '096b21cd-a020-4a02-9371-44648fd01617',
-    status: Status.todo,
-    onStatusChange: mockOnStatusChange,
-    onClick: mockOnClickMarkUpdate,
-    onDelete: mockOnClickDelete,
+const taskFooterTestProps = {
+  id: '096b21cd-a020-4a02-9371-44648fd01617',
+  status: Status.todo,
+  onStatusChange: mockOnStatusChange,
+  onClick: mockOnClickMarkUpdate,
+  onDelete: mockOnClickDelete,
+};
+
+const renderTaskFooter = (props = {}) => {
+  const combinedProps = {
+    ...taskFooterTestProps,
+    ...props,
   };
+  return render(<TaskFooter {...combinedProps} />);
+};
 
-  it('renders all elements without crashing', () => {
-    render(<TaskFooter {...taskFooterTestProps} />);
+const taskFooterText = {
+  inProgress: 'In Progress',
+  markComplete: 'Mark Complete',
+  deleteTask: 'Delete Task',
+};
+describe('TaskFooter Component Tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders all elements', () => {
+    renderTaskFooter();
     expect(
-      screen.getByLabelText('In Progress'),
+      screen.getByLabelText(taskFooterText.inProgress),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Mark Complete'),
+      screen.getByText(taskFooterText.markComplete),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Delete Task'),
+      screen.getByText(taskFooterText.deleteTask),
     ).toBeInTheDocument();
   });
 
   it('renders the correct switch status when the task status is ToDO', () => {
-    render(
-      <TaskFooter
-        {...taskFooterTestProps}
-        status={Status.todo}
-      />,
+    renderTaskFooter({ status: Status.todo });
+    const switchElement = screen.getByLabelText(
+      taskFooterText.inProgress,
     );
-    const switchElement =
-      screen.getByLabelText('In Progress');
     expect(switchElement).not.toBeChecked();
   });
 
   it('renders the correct switch status when the task status is InProgress', () => {
-    render(
-      <TaskFooter
-        {...taskFooterTestProps}
-        status={Status.inprogress}
-      />,
+    renderTaskFooter({ status: Status.inprogress });
+    const switchElement = screen.getByLabelText(
+      taskFooterText.inProgress,
     );
-    const switchElement =
-      screen.getByLabelText('In Progress');
     expect(switchElement).toBeChecked();
   });
 
   it('triggers onStatusChange when the switch is toggled', () => {
-    render(<TaskFooter {...taskFooterTestProps} />);
+    renderTaskFooter();
 
-    const switchElement =
-      screen.getByLabelText('In Progress');
+    const switchElement = screen.getByLabelText(
+      taskFooterText.inProgress,
+    );
     fireEvent.click(switchElement);
 
     expect(mockOnStatusChange).toHaveBeenCalledWith(
@@ -70,39 +80,18 @@ describe('TaskFooter Component Tests', () => {
     );
   });
 
-  it('triggers onClick for the Mark Complete button when task status is ToDo', () => {
-    render(
-      <TaskFooter
-        {...taskFooterTestProps}
-        status={Status.todo}
-      />,
-    );
+  [Status.todo, Status.inprogress].forEach((status) => {
+    it(`triggers onClick for the Mark Complete button when task status is ${status}`, () => {
+      renderTaskFooter({ status });
+      const markCompleteButton = screen.getByText(
+        taskFooterText.markComplete,
+      );
+      fireEvent.click(markCompleteButton);
 
-    const markCompleteButton =
-      screen.getByText('Mark Complete');
-    fireEvent.click(markCompleteButton);
-
-    expect(mockOnClickMarkUpdate).toHaveBeenCalledWith(
-      expect.any(Object),
-      taskFooterTestProps.id,
-    );
-  });
-
-  it('triggers onClick for the Mark Complete button when task status is InProgress', () => {
-    render(
-      <TaskFooter
-        {...taskFooterTestProps}
-        status={Status.inprogress}
-      />,
-    );
-
-    const markCompleteButton =
-      screen.getByText('Mark Complete');
-    fireEvent.click(markCompleteButton);
-
-    expect(mockOnClickMarkUpdate).toHaveBeenCalledWith(
-      expect.any(Object),
-      taskFooterTestProps.id,
-    );
+      expect(mockOnClickMarkUpdate).toHaveBeenCalledWith(
+        expect.any(Object),
+        taskFooterTestProps.id,
+      );
+    });
   });
 });

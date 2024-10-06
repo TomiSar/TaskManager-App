@@ -33,7 +33,7 @@ describe('TaskHeader Component Tests', () => {
     render(<TaskHeader />);
 
     expect(
-      screen.getByText('Task Header title'),
+      screen.getByText('Task Header Title'),
     ).toBeInTheDocument();
     expect(
       screen.getByText('Low priority'),
@@ -44,7 +44,7 @@ describe('TaskHeader Component Tests', () => {
     render(<TaskHeader title="" />);
 
     expect(
-      screen.queryByText('Task Header title'),
+      screen.queryByText('Task Header Title'),
     ).not.toBeInTheDocument();
     const titleElement = screen.getByText(
       (content, element) =>
@@ -55,54 +55,41 @@ describe('TaskHeader Component Tests', () => {
     expect(titleElement).toBeEmptyDOMElement();
   });
 
-  it('renders the correct success font color when priority is Low', () => {
-    render(
-      <TaskHeader
-        {...taskHeaderTestProps}
-        priority={Priority.low}
-      />,
-    );
+  const taskHeaderColorTestsByPriority = [
+    {
+      priority: Priority.low,
+      expectedColor: customTheme().palette.success.main,
+    },
+    {
+      priority: Priority.medium,
+      expectedColor: customTheme().palette.warning.main,
+    },
+    {
+      priority: Priority.high,
+      expectedColor: customTheme().palette.error.main,
+    },
+  ];
 
-    const priorityText = screen.getByText('Low priority');
-    const expectedColorRgb = convertHexToRgbColor(
-      customTheme().palette.success.main,
-    );
+  taskHeaderColorTestsByPriority.forEach(
+    ({ priority, expectedColor }) => {
+      it(`renders the correct font color when priority is ${priority}`, () => {
+        render(
+          <TaskHeader
+            {...taskHeaderTestProps}
+            priority={priority}
+          />,
+        );
 
-    expect(
-      window.getComputedStyle(priorityText).color,
-    ).toBe(expectedColorRgb);
-  });
+        const priorityText = screen.getByText(
+          `${priority} priority`,
+        );
+        const expectedColorRgb =
+          convertHexToRgbColor(expectedColor);
 
-  it('renders the correct warning font color when priority is Medium', () => {
-    render(<TaskHeader {...taskHeaderTestProps} />);
-
-    const priorityText = screen.getByText(
-      'Medium priority',
-    );
-    const expectedColorRgb = convertHexToRgbColor(
-      customTheme().palette.warning.main,
-    );
-
-    expect(
-      window.getComputedStyle(priorityText).color,
-    ).toBe(expectedColorRgb);
-  });
-
-  it('renders the correct error font color when priority is High', () => {
-    render(
-      <TaskHeader
-        {...taskHeaderTestProps}
-        priority={Priority.high}
-      />,
-    );
-
-    const priorityText = screen.getByText('High priority');
-    const expectedColorRgb = convertHexToRgbColor(
-      customTheme().palette.error.main,
-    );
-
-    expect(
-      window.getComputedStyle(priorityText).color,
-    ).toBe(expectedColorRgb);
-  });
+        expect(
+          window.getComputedStyle(priorityText).color,
+        ).toBe(expectedColorRgb);
+      });
+    },
+  );
 });
