@@ -27,8 +27,8 @@
     "test": "jest --env=jsdom",
     "test:watch": "jest --watch --env=jsdom",
     "test:coverage": "jest --coverage --env=jsdom",
-    "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}' --quiet",
-    "lint:fix": "eslint 'src/**/*.{ts,tsx,js,jsx}' --fix"
+    "lint": "eslint src/**/*.{ts,tsx,js,jsx} --quiet",
+    "lint:fix": "eslint src/**/*.{ts,tsx,js,jsx} --fix"
   },
   "eslintConfig": {
     "extends": [

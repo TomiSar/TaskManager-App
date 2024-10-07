@@ -32,6 +32,7 @@ const taskFooterText = {
   markComplete: 'Mark Complete',
   deleteTask: 'Delete Task',
 };
+
 describe('TaskFooter Component Tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -93,5 +94,10 @@ describe('TaskFooter Component Tests', () => {
         taskFooterTestProps.id,
       );
     });
+  });
+
+  it('matches the TaskFooter snapshot', () => {
+    const { asFragment } = renderTaskFooter();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

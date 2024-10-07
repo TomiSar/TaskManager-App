@@ -6,6 +6,10 @@ const taskDescriptionTestProps = {
   description: 'Test Task Description',
 };
 
+const taskDescriptionText = {
+  description: 'Task Description',
+};
+
 const renderTaskDescription = (props = {}) => {
   const combinedProps = {
     ...taskDescriptionTestProps,
@@ -28,14 +32,14 @@ describe('TaskDescription Component Tests', () => {
   it('renders default value when no description provided', () => {
     renderTaskDescription({ description: undefined });
     expect(
-      screen.getByText('Task Description'),
+      screen.getByText(taskDescriptionText.description),
     ).toBeInTheDocument();
   });
 
   it('renders empty value when description is empty', () => {
     renderTaskDescription({ description: '' });
     expect(
-      screen.queryByText('Task Description'),
+      screen.queryByText(taskDescriptionText.description),
     ).not.toBeInTheDocument();
 
     const descriptionElement = screen.getByText(
@@ -45,5 +49,10 @@ describe('TaskDescription Component Tests', () => {
 
     expect(descriptionElement).toBeInTheDocument();
     expect(descriptionElement).toBeEmptyDOMElement();
+  });
+
+  it('matches the TaskDescription snapshot', () => {
+    const { asFragment } = renderTaskDescription();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

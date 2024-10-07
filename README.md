@@ -68,6 +68,9 @@
 - yarn test:coverage (see coverage)
 - yarn test:watch (watch mode)
 
+## Clean snapshot results from client script
+- ./deleteSnapshots.sh
+
 ## Documents
 
 - https://www.npmjs.com/package/typeorm

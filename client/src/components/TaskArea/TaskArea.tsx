@@ -92,7 +92,18 @@ export function TaskArea() {
   ]);
 
   return (
-    <Grid item md={8} sx={{ px: 4 }}>
+    <Grid
+      sx={{
+        display: 'flex',
+        backgroundColor: 'background.default',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+      item
+      md={8}
+      px={4}
+    >
       <Box mb={8} px={4}>
         <h2>
           Status Of Your Tasks As On{' '}
@@ -161,7 +172,7 @@ export function TaskArea() {
               data.length === 0 && (
                 <Alert severity="warning">
                   You do not have created any tasks. Start
-                  by creating a new Tasks.
+                  by creating new Tasks.
                 </Alert>
               )}
 

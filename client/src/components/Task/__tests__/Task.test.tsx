@@ -120,4 +120,9 @@ describe('Task Component Test', () => {
       });
     },
   );
+
+  it('matches the Task snapshot', () => {
+    const { asFragment } = renderTask();
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

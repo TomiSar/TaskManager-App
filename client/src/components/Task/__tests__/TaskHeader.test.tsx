@@ -12,6 +12,12 @@ const taskHeaderTestProps = {
   priority: Priority.medium,
 };
 
+const taskHeaderText = {
+  title: 'Task Header Title',
+  mediumPriority: 'Medium priority',
+  lowPriority: 'Low priority',
+};
+
 describe('TaskHeader Component Tests', () => {
   it('renders with correct props', () => {
     render(<TaskHeader {...taskHeaderTestProps} />);
@@ -25,7 +31,7 @@ describe('TaskHeader Component Tests', () => {
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Medium priority'),
+      screen.getByText(taskHeaderText.mediumPriority),
     ).toBeInTheDocument();
   });
 
@@ -33,10 +39,10 @@ describe('TaskHeader Component Tests', () => {
     render(<TaskHeader />);
 
     expect(
-      screen.getByText('Task Header Title'),
+      screen.getByText(taskHeaderText.title),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Low priority'),
+      screen.getByText(taskHeaderText.lowPriority),
     ).toBeInTheDocument();
   });
 
@@ -44,7 +50,7 @@ describe('TaskHeader Component Tests', () => {
     render(<TaskHeader title="" />);
 
     expect(
-      screen.queryByText('Task Header Title'),
+      screen.queryByText(taskHeaderText.title),
     ).not.toBeInTheDocument();
     const titleElement = screen.getByText(
       (content, element) =>
@@ -92,4 +98,9 @@ describe('TaskHeader Component Tests', () => {
       });
     },
   );
+
+  it('matches the TaskHeader snapshot', () => {
+    const { asFragment } = render(<TaskHeader />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

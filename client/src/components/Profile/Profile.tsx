@@ -20,19 +20,15 @@ export function Profile({
         alignItems: 'center',
       }}
     >
-      <Typography
-        sx={{ alignItems: 'center' }}
-        variant="h5"
-        color="text.primary"
-      >
-        {`Welcome ${firstName} ${lastName}!`}
+      <Typography variant="h5" color="text.primary">
+        {`Welcome ${firstName} ${lastName}`}
       </Typography>
       <Typography
         mb={4}
         variant="body1"
         color="text.primary"
       >
-        This is your personal tasks manager
+        Personal Task Manager
       </Typography>
       <Avatar
         data-testid="profile-avatar"

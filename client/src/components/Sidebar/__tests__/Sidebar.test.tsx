@@ -44,4 +44,9 @@ describe('Sidebar Component Tests', () => {
       screen.getByTestId('mock-create-task-form'),
     ).toBeInTheDocument();
   });
+
+  it('matches the Sidebar snapshot', () => {
+    const { asFragment } = render(<Sidebar />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
