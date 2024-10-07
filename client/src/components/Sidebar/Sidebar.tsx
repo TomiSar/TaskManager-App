@@ -22,7 +22,6 @@ export function Sidebar() {
       }}
     >
       <Profile firstName="Chuck" lastName="Norris" />
-      {/* <Profile /> */}
       <CreateTaskForm />
     </Grid>
   );
