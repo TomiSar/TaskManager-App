@@ -3,6 +3,7 @@ import { TextField } from '@mui/material';
 import { TaskText as TaskTitleProps } from '../../interfaces/TaskText';
 
 export function TaskTitle({
+  value = '',
   onChange = (e) => console.log(e),
   disabled = false,
 }: TaskTitleProps) {
@@ -15,6 +16,7 @@ export function TaskTitle({
       variant="outlined"
       size="small"
       fullWidth
+      value={value}
       onChange={onChange}
       disabled={disabled}
     />

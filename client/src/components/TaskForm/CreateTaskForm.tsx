@@ -68,6 +68,11 @@ export function CreateTaskForm() {
     createTaskMutation.mutate(newTask);
 
     // Clear Form values
+    setTitle('');
+    setDescription('');
+    setDate(new Date());
+    setStatus(taskStatus[0].value);
+    setPriority(taskPriority[1].value);
   }
 
   useEffect(() => {
@@ -113,10 +118,12 @@ export function CreateTaskForm() {
       </Typography>
       <Stack sx={{ width: '100%' }} spacing={2}>
         <TaskTitle
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
           disabled={createTaskMutation.isLoading}
         />
         <TaskDescription
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           disabled={createTaskMutation.isLoading}
         />

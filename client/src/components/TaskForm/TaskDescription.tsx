@@ -3,6 +3,7 @@ import { TextField } from '@mui/material';
 import { TaskText as TaskDescriptionProps } from '../../interfaces/TaskText';
 
 export function TaskDescription({
+  value = '',
   onChange = (e) => console.log(e),
   disabled = false,
 }: TaskDescriptionProps) {
@@ -17,6 +18,7 @@ export function TaskDescription({
       multiline
       rows={4}
       fullWidth
+      value={value}
       onChange={onChange}
       disabled={disabled}
     />
