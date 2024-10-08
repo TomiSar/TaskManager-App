@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { AppDataSource } from './connection/db';
+import { initializeDatabase } from './connection/db';
 import { taskRouter } from './routes/taskRouter';
 
 const app: Express = express();
@@ -16,16 +16,15 @@ app.use(cors());
 
 (async () => {
   try {
-    await AppDataSource.initialize();
+    await initializeDatabase();
     app.listen(PORT, () =>
       console.log(
         colors.rainbow(`Server running on port ${PORT}.`),
       ),
     );
-    console.log('Data Source has been initialized!');
   } catch (err) {
     console.error(
-      'Error during Data Source initialization:',
+      'Error during server initialization:',
       err,
     );
   }
