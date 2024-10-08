@@ -11,20 +11,14 @@ export class Task {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({
-    type: 'text',
-  })
+  @Column('varchar', { length: 64 })
   title: string;
 
-  @Column({
-    type: 'varchar',
-    length: 255,
-  })
+  // @Column({ type: 'date' })
+  @Column('varchar', { length: 255 })
   date: Date;
 
-  @Column({
-    type: 'longtext',
-  })
+  @Column('varchar', { length: 320 })
   description: string;
 
   @Column({

@@ -9,7 +9,7 @@ import {
   createTaskValidator,
   updateTaskValidator,
   deleteTaskValidator,
-} from '../middleware/validationMiddleware';
+} from '../middleware/taskValidator';
 import { handleValidationErrors } from '../utils/validationHandler';
 
 export const taskRouter: Router = Router();

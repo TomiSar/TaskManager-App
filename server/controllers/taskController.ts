@@ -19,10 +19,9 @@ const getAllTasks = async (
       Task,
     ).find({
       order: {
-        date: 'desc',
+        date: 'ASC',
       },
     });
-
     res.status(200).json(instanceToPlain(allTasks));
   } catch (errors) {
     res.status(500).json({ err: 'Internal server error' });
@@ -38,10 +37,11 @@ const createTask = async (
   res: Response,
 ): Promise<void> => {
   const newTask = new Task();
-  const { title, description, priority, status } = req.body;
+  const { title, date, description, priority, status } =
+    req.body;
 
   newTask.title = title;
-  newTask.date = new Date();
+  newTask.date = date ? new Date(date) : new Date();
   newTask.description = description;
   newTask.priority = priority;
   newTask.status = status;
@@ -91,7 +91,6 @@ const updateTask = async (
 
   const updatedTaskFields = plainToInstance(Task, {
     title: title || task.title,
-    date: new Date(),
     description: description || task.description,
     priority: priority || task.priority,
     status,

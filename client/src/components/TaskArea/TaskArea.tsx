@@ -126,30 +126,42 @@ export function TaskArea() {
           xs={12}
           mb={8}
         >
-          <TaskCounter
-            status={Status.todo}
-            count={
-              data
-                ? countTotalTasks(data, Status.todo)
-                : undefined
-            }
-          />
-          <TaskCounter
-            status={Status.inprogress}
-            count={
-              data
-                ? countTotalTasks(data, Status.inprogress)
-                : undefined
-            }
-          />
-          <TaskCounter
-            status={Status.completed}
-            count={
-              data
-                ? countTotalTasks(data, Status.completed)
-                : undefined
-            }
-          />
+          {!error &&
+            Array.isArray(data) &&
+            data.length !== 0 && (
+              <>
+                <TaskCounter
+                  status={Status.todo}
+                  count={
+                    data
+                      ? countTotalTasks(data, Status.todo)
+                      : undefined
+                  }
+                />
+                <TaskCounter
+                  status={Status.inprogress}
+                  count={
+                    data
+                      ? countTotalTasks(
+                          data,
+                          Status.inprogress,
+                        )
+                      : undefined
+                  }
+                />
+                <TaskCounter
+                  status={Status.completed}
+                  count={
+                    data
+                      ? countTotalTasks(
+                          data,
+                          Status.completed,
+                        )
+                      : undefined
+                  }
+                />
+              </>
+            )}
         </Grid>
         <Grid
           sx={{
@@ -166,16 +178,25 @@ export function TaskArea() {
                 Error fetching tasks data
               </Alert>
             )}
-
             {!error &&
               Array.isArray(data) &&
               data.length === 0 && (
-                <Alert severity="warning">
-                  You do not have created any tasks. Start
-                  by creating new Tasks.
+                <Alert
+                  sx={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'warning.dark',
+                    boxShadow: 14,
+                    fontSize: '20px',
+                    borderRadius: '24px',
+                  }}
+                  severity="warning"
+                >
+                  TaskManager board is empty. Start using
+                  board by creating new Task(s) from Sidebar
+                  using Create new Task Form.
                 </Alert>
               )}
-
             {isLoading ? (
               <LinearProgress />
             ) : (
