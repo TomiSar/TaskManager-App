@@ -67,12 +67,8 @@ export const countTotalTasks = (
   status: TaskCountStatusType,
 ): number => {
   if (!Array.isArray(tasks)) return 0;
-
-  const totalTasks = tasks.filter((task) => {
-    return task.status === status;
-  });
-
-  return totalTasks.length;
+  return tasks.filter((task) => task.status === status)
+    .length;
 };
 
 export const setAvatarLetters = (

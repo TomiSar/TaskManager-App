@@ -1,5 +1,6 @@
 export interface TaskContentHeader {
   title?: string;
-  date?: Date;
+  creationDate?: Date;
+  dueDate?: Date;
   priority?: string;
 }

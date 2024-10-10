@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { TaskTitle } from './TaskTitle';
 import { TaskDescription } from './TaskDescription';
-import { TaskDueDate } from './TaskDueDate';
+import { TaskDate } from './TaskDate';
 import { TaskSelect } from './TaskSelect';
 import {
   API_URL,
@@ -33,7 +33,8 @@ export function CreateTaskForm() {
   const [description, setDescription] = useState<
     string | undefined
   >(undefined);
-  const [date, setDate] = useState<Date | null>(new Date());
+  const [creationDate] = useState<Date>(new Date());
+  const [dueDate, setDueDate] = useState<Date | null>(null);
   const [status, setStatus] = useState<string>(
     taskStatus[0].value,
   );
@@ -42,35 +43,45 @@ export function CreateTaskForm() {
   );
   const [showSuccess, setShowSuccess] =
     useState<boolean>(false);
+  const [showDateError, setShowDateError] =
+    useState<boolean>(false);
 
   const tasksUpdatedContext = useContext(
     TaskStatusChangedContext,
   );
 
-  // Create task mutation
   const createTaskMutation = useMutation(
     (data: CreateNewTask) =>
       sendApiRequest(API_URL, 'POST', data),
   );
 
   function createTaskHandler() {
-    if (!title || !description || !date) {
+    if (!title || !description || !dueDate) {
       return;
     }
 
     const newTask = {
       title,
       description,
-      date: date.toString(),
+      creationDate: creationDate.toString(),
+      dueDate: dueDate.toString(),
       status,
       priority,
     };
+
+    const createdDate = new Date(newTask.creationDate);
+    const taskDueDate = new Date(newTask.dueDate);
+
+    if (taskDueDate <= createdDate) {
+      setShowDateError(true);
+      return;
+    }
+
     createTaskMutation.mutate(newTask);
 
-    // Clear Form values
     setTitle('');
     setDescription('');
-    setDate(new Date());
+    setDueDate(new Date());
     setStatus(taskStatus[0].value);
     setPriority(taskPriority[1].value);
   }
@@ -89,6 +100,15 @@ export function CreateTaskForm() {
       clearTimeout(successTimeout);
     };
   }, [createTaskMutation.isSuccess]);
+
+  useEffect(() => {
+    if (showDateError) {
+      const errorTimeout = setTimeout(() => {
+        setShowDateError(false);
+      }, 3000);
+      return () => clearTimeout(errorTimeout);
+    }
+  }, [showDateError]);
 
   return (
     <Box
@@ -113,6 +133,19 @@ export function CreateTaskForm() {
           Task created successfully
         </Alert>
       )}
+
+      {showDateError && (
+        <Alert
+          sx={{
+            width: '100%',
+            marginBottom: '16px',
+          }}
+          severity="error"
+        >
+          <AlertTitle>Error</AlertTitle>
+          Task Due date has to be today or in the future
+        </Alert>
+      )}
       <Typography component="h2" variant="h6" mb={2}>
         Create new task
       </Typography>
@@ -127,9 +160,9 @@ export function CreateTaskForm() {
           onChange={(e) => setDescription(e.target.value)}
           disabled={createTaskMutation.isLoading}
         />
-        <TaskDueDate
-          date={date}
-          onChange={(date) => setDate(date)}
+        <TaskDate
+          date={dueDate ?? new Date()}
+          onChange={(date) => setDueDate(date)}
           disabled={createTaskMutation.isLoading}
         />
 
@@ -168,7 +201,7 @@ export function CreateTaskForm() {
           disabled={
             !title ||
             !description ||
-            !date ||
+            !dueDate ||
             !status ||
             !priority
           }

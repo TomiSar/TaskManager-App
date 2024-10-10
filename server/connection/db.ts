@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { Task } from '../models/taskEntity';
 import colors from 'colors';
 import mysql from 'mysql2/promise';
+import path from 'path';
 
 async function createDatabaseIfNotExists() {
   const connection = await mysql.createConnection({
@@ -25,6 +26,7 @@ export const AppDataSource = new DataSource({
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
   entities: [Task],
+  migrations: [path.join(__dirname, '../migrations')],
   synchronize: true,
 });
 

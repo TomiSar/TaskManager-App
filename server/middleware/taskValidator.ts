@@ -16,13 +16,15 @@ export const createTaskValidator: ValidationChain[] = [
     .withMessage(
       'Task title needs to be valid text format',
     ),
-  body('date')
+  body('dueDate')
     .not()
     .isEmpty()
-    .withMessage('The task date is required')
+    .withMessage('The task dueDate is required')
     .trim()
     .isString()
-    .withMessage('Task date needs to be valid date format'),
+    .withMessage(
+      'Task dueDate needs to be valid dueDate format',
+    ),
   body('description')
     .not()
     .isEmpty()

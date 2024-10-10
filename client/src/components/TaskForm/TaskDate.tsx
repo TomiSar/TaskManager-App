@@ -1,17 +1,17 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import { TaskDate as TaskDueDateProps } from '../../interfaces/TaskDate';
+import { TaskDate as TaskDateProps } from '../../interfaces/TaskDate';
 import {
   LocalizationProvider,
   DesktopDatePicker,
 } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-export function TaskDueDate({
+export function TaskDate({
   date = new Date(),
   onChange = (date) => console.log(date),
   disabled = false,
-}: TaskDueDateProps) {
+}: TaskDateProps) {
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>

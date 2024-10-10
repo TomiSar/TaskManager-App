@@ -15,8 +15,12 @@ export class Task {
   title: string;
 
   // @Column({ type: 'date' })
-  @Column('varchar', { length: 255 })
-  date: Date;
+  @Column({ type: 'datetime' })
+  creationDate: Date;
+
+  // @Column({ type: 'date' })
+  @Column({ type: 'datetime' })
+  dueDate: Date;
 
   @Column('varchar', { length: 320 })
   description: string;

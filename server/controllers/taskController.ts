@@ -19,7 +19,7 @@ const getAllTasks = async (
       Task,
     ).find({
       order: {
-        date: 'ASC',
+        dueDate: 'ASC',
       },
     });
     res.status(200).json(instanceToPlain(allTasks));
@@ -37,11 +37,22 @@ const createTask = async (
   res: Response,
 ): Promise<void> => {
   const newTask = new Task();
-  const { title, date, description, priority, status } =
-    req.body;
+  const {
+    title,
+    creationDate,
+    dueDate,
+    description,
+    priority,
+    status,
+  } = req.body;
 
   newTask.title = title;
-  newTask.date = date ? new Date(date) : new Date();
+  newTask.creationDate = creationDate
+    ? new Date(creationDate)
+    : new Date();
+  newTask.dueDate = dueDate
+    ? new Date(dueDate)
+    : new Date();
   newTask.description = description;
   newTask.priority = priority;
   newTask.status = status;
@@ -66,8 +77,14 @@ const updateTask = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const { id, title, description, priority, status } =
-    req.body;
+  const {
+    id,
+    title,
+    dueDate,
+    description,
+    priority,
+    status,
+  } = req.body;
 
   let task: Task | null;
 
@@ -91,6 +108,7 @@ const updateTask = async (
 
   const updatedTaskFields = plainToInstance(Task, {
     title: title || task.title,
+    dueDate: dueDate || task.dueDate,
     description: description || task.description,
     priority: priority || task.priority,
     status,

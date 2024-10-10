@@ -7,7 +7,8 @@ import { format } from 'date-fns';
 
 export function TaskHeader({
   title = 'Task Header Title',
-  date = new Date(),
+  creationDate = new Date(),
+  dueDate = new Date(),
   priority = Priority.low,
 }: TaskHeaderProps) {
   return (
@@ -33,10 +34,30 @@ export function TaskHeader({
           {priority} priority
         </Typography>
       </Box>
-      <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+        }}
+      >
         <Chip
+          sx={{
+            marginBottom: '10px',
+            fontSize: '12px',
+            color: 'success.light',
+          }}
           variant="outlined"
-          label={format(date, 'PPP')}
+          color="success"
+          label={`Created: ${format(creationDate, 'dd/MM/yyyy')}`}
+        />
+        <Chip
+          sx={{
+            fontSize: '12px',
+          }}
+          variant="outlined"
+          color="info"
+          label={`DueDate: ${format(dueDate, 'dd/MM/yyyy')}`}
         />
       </Box>
     </Box>

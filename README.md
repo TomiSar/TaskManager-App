@@ -68,6 +68,10 @@
 - yarn test:coverage (see coverage)
 - yarn test:watch (watch mode)
 
+## Geneate and Add migration typeorm (migrations)
+- npm run typeorm -- migration:generate -n RenameDateToDueDateAndAddCreationDate
+- npm run typeorm migration:run
+
 ## Clean snapshot results from client script
 - ./deleteSnapshots.sh
 

@@ -8,7 +8,8 @@ import { customTheme } from '../../../theme/customTheme';
 
 const taskHeaderTestProps = {
   title: 'Test Task Header Title',
-  date: new Date(),
+  creationDate: new Date(),
+  dueDate: new Date(),
   priority: Priority.medium,
 };
 
@@ -27,7 +28,12 @@ describe('TaskHeader Component Tests', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        format(taskHeaderTestProps.date, 'PPP'),
+        `Created: ${format(taskHeaderTestProps.creationDate, 'dd/MM/yyyy')}`,
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        `DueDate: ${format(taskHeaderTestProps.dueDate, 'dd/MM/yyyy')}`,
       ),
     ).toBeInTheDocument();
     expect(

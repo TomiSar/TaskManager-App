@@ -30,7 +30,7 @@ export function TaskFooter({
           <Switch
             onChange={(e) => onStatusChange(e, id)}
             color="warning"
-            defaultChecked={status === Status.inprogress}
+            checked={status === Status.inprogress}
           />
         }
       />

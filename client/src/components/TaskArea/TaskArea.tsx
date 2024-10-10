@@ -80,10 +80,10 @@ export function TaskArea() {
   }, [tasksUpdatedContext.updated]);
 
   useEffect(() => {
-    if (updateTaskMutation.isSuccess) {
-      tasksUpdatedContext.toggle();
-    }
-    if (deleteTaskMutation.isSuccess) {
+    if (
+      updateTaskMutation.isSuccess ||
+      deleteTaskMutation.isSuccess
+    ) {
       tasksUpdatedContext.toggle();
     }
   }, [
@@ -202,14 +202,17 @@ export function TaskArea() {
             ) : (
               Array.isArray(data) &&
               data.length > 0 &&
-              data.map((task, index) => {
+              data.map((task) => {
                 return task.status === Status.todo ||
                   task.status === Status.inprogress ? (
                   <Task
-                    key={index + task.priority}
+                    key={task.id}
                     id={task.id}
                     title={task.title}
-                    date={new Date(task.date)}
+                    creationDate={
+                      new Date(task.creationDate)
+                    }
+                    dueDate={new Date(task.dueDate)}
                     description={task.description}
                     status={task.status}
                     priority={task.priority}

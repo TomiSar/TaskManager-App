@@ -10,7 +10,8 @@ import { TaskFooter } from './TaskFooter';
 
 export function Task({
   title,
-  date = new Date(),
+  creationDate = new Date(),
+  dueDate = new Date(),
   description = 'Task Description',
   priority = Priority.medium,
   id,
@@ -37,7 +38,8 @@ export function Task({
     >
       <TaskHeader
         title={title}
-        date={date}
+        creationDate={creationDate}
+        dueDate={dueDate}
         priority={priority}
       />
       <TaskDescription description={description} />
