@@ -105,7 +105,7 @@ export function TaskArea() {
       px={4}
     >
       <Box mb={8} px={4}>
-        <h2>
+        <h2 data-testid="task-area-header-text">
           Status Of Your Tasks As On{' '}
           {format(new Date(), 'PPPP')}
         </h2>
@@ -175,7 +175,7 @@ export function TaskArea() {
           <>
             {error && (
               <Alert severity="error">
-                Error fetching tasks data
+                Error fetching tasks data from API
               </Alert>
             )}
             {!error &&

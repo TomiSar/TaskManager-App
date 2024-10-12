@@ -10,7 +10,7 @@ function returnCorrectRequest(
 
   if (method === 'GET') {
     return {
-      method: method,
+      method,
       headers,
     };
   }
@@ -40,6 +40,7 @@ export async function sendApiRequest<T>(
     const message =
       error?.message ||
       `An error occurred: ${response.status}`;
+    console.debug(message);
     throw new Error(message);
   }
 

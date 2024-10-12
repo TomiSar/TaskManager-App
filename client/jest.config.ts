@@ -1,4 +1,6 @@
 import { Config } from '@jest/types';
+// import { TextEncoder } from 'util';
+// global.TextEncoder = TextEncoder;
 
 const config: Config.InitialOptions = {
   roots: ['<rootDir>/src'],
@@ -21,7 +23,11 @@ const config: Config.InitialOptions = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   testMatch: ['**/__tests__/**/*.(test|spec).tsx'],
-  testEnvironment: 'jest-environment-jsdom',
+  // testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: 'jest-fixed-jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
 };
 
 export default config;

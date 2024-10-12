@@ -15,6 +15,8 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "date-fns": "2.29.1",
+    "jest-fixed-jsdom": "^0.0.4",
+    "msw": "^2.4.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-query": "^3.39.3",
@@ -25,9 +27,9 @@
   "scripts": {
     "client": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --env=jsdom",
-    "test:watch": "jest --watch --env=jsdom",
-    "test:coverage": "jest --coverage --env=jsdom",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint src/**/*.{ts,tsx,js,jsx} --quiet",
     "lint:fix": "eslint src/**/*.{ts,tsx,js,jsx} --fix"
   },
