@@ -2,10 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TaskCounter } from '../TaskCounter';
 import { Status } from '../../../enums/Status';
-import {
-  setTaskCounterStatusBorderColor,
-  //   setTaskCounterLabel,
-} from '../../../helpers/helpers';
+import { setTaskCounterStatusBorderColor } from '../../../helpers/helpers';
 import { customTheme } from '../../../theme/customTheme';
 
 jest.mock('../../../helpers/helpers', () => ({
@@ -71,4 +68,9 @@ describe('TaskCounter Component', () => {
       });
     },
   );
+
+  it('matches the TaskCounter snapshot', () => {
+    const { asFragment } = render(<TaskCounter />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
