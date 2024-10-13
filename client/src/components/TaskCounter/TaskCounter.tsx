@@ -30,6 +30,7 @@ export function TaskCounter({
             marginBottom: '16px',
             borderColor: `${setTaskCounterStatusBorderColor(status)}`,
           }}
+          data-testid="task-counter-border"
         >
           <Typography color="#ffffff" variant="h4">
             {count}

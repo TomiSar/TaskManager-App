@@ -11,8 +11,6 @@ const mockTasks = [
     creationDate: '2024-09-09T15:49:40.000Z',
     dueDate: '2024-10-10T22:49:55.000Z',
     description: 'Test number uno just for kicks',
-    // priority: 'Medium',
-    // status: 'InProgress',
     priority: Priority.medium as string,
     status: Status.inprogress as string,
   },
@@ -22,8 +20,6 @@ const mockTasks = [
     creationDate: '2024-08-10T23:18:14.000Z',
     dueDate: '2024-09-30T23:19:12.000Z',
     description: 'Testing is fun',
-    // priority: 'High',
-    // status: 'Completed',
     priority: Priority.high as string,
     status: Status.completed as string,
   },
@@ -86,7 +82,7 @@ export const mockServer = setupServer(
   }),
 
   // Handler for 500 Internal Server Error
-  http.get(API_URL, () => {
+  http.get(API_URL, async () => {
     return HttpResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 },

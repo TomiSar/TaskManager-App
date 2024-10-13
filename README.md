@@ -76,6 +76,7 @@
 - ./deleteSnapshots.sh
 
 ## Documents
+- https://mswjs.io/docs/api/http
 - https://mswjs.io/
 - https://typeorm.io/
 - https://www.npmjs.com/package/typeorm

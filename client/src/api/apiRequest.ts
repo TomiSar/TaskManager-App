@@ -40,7 +40,7 @@ export async function sendApiRequest<T>(
     const message =
       error?.message ||
       `An error occurred: ${response.status}`;
-    console.debug(message);
+    console.debug(error);
     throw new Error(message);
   }
 

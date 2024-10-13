@@ -45,7 +45,7 @@ describe('Task Component Test', () => {
     jest.clearAllMocks();
   });
 
-  it.skip('renders correct props to child components', () => {
+  it('renders correct props to child components', () => {
     renderTask();
 
     expect(
@@ -55,7 +55,14 @@ describe('Task Component Test', () => {
       screen.getByText(taskText.mediumPriority),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(format(taskTestProps.date, 'PPP')),
+      screen.getByText(
+        `Created: ${format(taskTestProps.date, 'dd/MM/yyyy')}`,
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        `DueDate: ${format(taskTestProps.date, 'dd/MM/yyyy')}`,
+      ),
     ).toBeInTheDocument();
     expect(
       screen.getByText(taskTestProps.description),
