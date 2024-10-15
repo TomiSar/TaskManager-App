@@ -7,15 +7,23 @@
 - http://localhost:5000/api/tasks (PUT update Task)
 - http://localhost:5000/api/tasks/{id} (DELETE Task by id)
 
+## API endpoints (Users)
+
+- http://localhost:5000/api/users/auth/register (POST Register new user)
+- http://localhost:5000/api/users/auth/login (POST Login user)
+- http://localhost:5000/api/users/auth/logout (POST Logout user)
+- http://localhost:5000/api/users/{id} (GET User by id)
+- http://localhost:5000/api/users/all (GET All Users)
+
 ## Create react app, config ESLint (TypeScript)
 
 - npx create-react-app todo-react --template typescript
 
 ## server .env file values
-
 - **MYSQL_USERNAME='MYSQL_USERNAME'**
 - **MYSQL_PASSWORD='MYSQL_PASSWORD'**
 - **MYSQL_DATABASE='MYSQL_DATABASE'**
+- **JWT_SECRET='JWT_SERCRET'**
 - **PORT=**
 
 ## npm packages backend taskmanager-app/server

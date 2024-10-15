@@ -1,10 +1,12 @@
 import {
   Column,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Priority } from '../enums/Priority';
 import { Status } from '../enums/Status';
+import { User } from './userEntity';
 
 @Entity()
 export class Task {
@@ -14,11 +16,9 @@ export class Task {
   @Column('varchar', { length: 64 })
   title: string;
 
-  // @Column({ type: 'date' })
   @Column({ type: 'datetime' })
   creationDate: Date;
 
-  // @Column({ type: 'date' })
   @Column({ type: 'datetime' })
   dueDate: Date;
 
@@ -38,4 +38,7 @@ export class Task {
     default: Status.todo,
   })
   status: Status;
+
+  @ManyToOne(() => User, (user) => user.tasks)
+  user: User;
 }

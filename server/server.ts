@@ -6,6 +6,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { initializeDatabase } from './connection/db';
 import { taskRouter } from './routes/taskRouter';
+import { authRouter } from './routes/authRouter';
 
 const app: Express = express();
 const PORT = process.env.PORT || 5000;
@@ -32,3 +33,4 @@ app.use(cors());
 
 // Routes
 app.use('/api/tasks', taskRouter);
+app.use('/api/users', authRouter);

@@ -99,8 +99,7 @@ export const updateTaskValidator: ValidationChain[] = [
 
 export const deleteTaskValidator: ValidationChain[] = [
   param('id')
-    .not()
-    .isEmpty()
+    .notEmpty()
     .withMessage('The task id is required')
     .trim()
     .isUUID()

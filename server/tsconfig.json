@@ -2,6 +2,7 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
     /* Language and Environment */
+    "typeRoots": ["./@types", "./node_modules/@types"],
     "target": "es2016",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -19,5 +20,7 @@
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"]
 }

@@ -3,6 +3,7 @@ import { Task } from '../models/taskEntity';
 import colors from 'colors';
 import mysql from 'mysql2/promise';
 import path from 'path';
+import { User } from '../models/userEntity';
 
 async function createDatabaseIfNotExists() {
   const connection = await mysql.createConnection({
@@ -25,7 +26,7 @@ export const AppDataSource = new DataSource({
   username: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  entities: [Task],
+  entities: [Task, User],
   migrations: [path.join(__dirname, '../migrations')],
   synchronize: true,
 });

@@ -64,7 +64,7 @@ const createTask = async (
       message: 'Task created successfully',
       createdTask: instanceToPlain(createdTask),
     });
-  } catch (errors) {
+  } catch (error) {
     res.status(500).json({ err: 'Internal server error' });
   }
 };
