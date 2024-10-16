@@ -5,11 +5,12 @@ import {
 } from 'class-transformer';
 import { AppDataSource } from '../connection/db';
 import { Task } from '../models/taskEntity';
+import { User } from '../models/userEntity';
 
 // GET ALL JOBS
 // @desc   Fetch all tasks
 // @route  GET  /api/tasks
-// @access Public
+// @access Private (protected)
 const getAllTasks = async (
   req: Request,
   res: Response,
@@ -31,12 +32,11 @@ const getAllTasks = async (
 // CREATE TASK
 // @desc   Create new Task
 // @route  POST  /api/tasks
-// @access Public
+// @access Private (protected)
 const createTask = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const newTask = new Task();
   const {
     title,
     creationDate,
@@ -46,6 +46,16 @@ const createTask = async (
     status,
   } = req.body;
 
+  const user = req.user as User;
+
+  if (!user) {
+    res
+      .status(401)
+      .json({ message: 'User is not authorized' });
+    return;
+  }
+
+  const newTask = new Task();
   newTask.title = title;
   newTask.creationDate = creationDate
     ? new Date(creationDate)
@@ -56,6 +66,7 @@ const createTask = async (
   newTask.description = description;
   newTask.priority = priority;
   newTask.status = status;
+  newTask.user = user;
 
   try {
     const createdTask: Task =
@@ -71,8 +82,8 @@ const createTask = async (
 
 // UPDATE TASK
 // @desc   Update existing Task
-// @route  POST  /api/tasks
-// @access Public
+// @route  PUT  /api/tasks
+// @access Private (protected)
 const updateTask = async (
   req: Request,
   res: Response,
@@ -92,17 +103,24 @@ const updateTask = async (
     task = await AppDataSource.getRepository(Task).findOne({
       where: { id },
     });
+
+    if (!task) {
+      res.status(404).json({
+        error: 'The task with given ID does not exist',
+      });
+      return;
+    }
+
+    if (task.user.id !== req.user?.id) {
+      res.status(403).json({
+        message: 'User not authorized to update this task',
+      });
+      return;
+    }
   } catch (errors) {
     res
       .status(500)
       .json({ error: 'Internal Server Error' });
-    return;
-  }
-
-  if (!task) {
-    res.status(404).json({
-      error: 'The task with given ID does not exist',
-    });
     return;
   }
 
@@ -138,7 +156,7 @@ const updateTask = async (
 // DELETE TASK
 // @desc   DELETE existing Task
 // @route  DELETE /api/tasks/:id
-// @access Public
+// @access Private (protected)
 const deleteTask = async (
   req: Request,
   res: Response,
@@ -150,6 +168,20 @@ const deleteTask = async (
     task = await AppDataSource.getRepository(Task).findOne({
       where: { id },
     });
+
+    if (!task) {
+      res.status(404).json({
+        error: 'The task with given ID does not exist',
+      });
+      return;
+    }
+
+    if (task.user.id !== req.user?.id) {
+      res.status(403).json({
+        message: 'User not authorized to delete this task',
+      });
+      return;
+    }
   } catch (errors) {
     res
       .status(500)
@@ -157,18 +189,11 @@ const deleteTask = async (
     return;
   }
 
-  if (!task) {
-    res.status(404).json({
-      error: 'The task with given ID does not exist',
-    });
-    return;
-  }
-
   try {
     await AppDataSource.getRepository(Task).delete({ id });
-    res.status(200).json({
-      message: 'Task deleted successfully',
-    });
+    res
+      .status(200)
+      .json({ message: 'Task deleted successfully' });
   } catch (error) {
     res.status(500).json({ err: 'Internal server error' });
   }

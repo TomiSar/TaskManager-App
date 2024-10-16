@@ -11,13 +11,15 @@ import {
   deleteTaskValidator,
 } from '../middleware/taskValidator';
 import { handleValidationErrors } from '../utils/validationHandler';
+import { protect } from '../middleware/authMiddleware';
 
 export const taskRouter: Router = Router();
 
-taskRouter.route('/').get(getAllTasks);
+taskRouter.route('/').get(protect, getAllTasks);
 taskRouter
   .route('/')
   .post(
+    protect,
     createTaskValidator,
     handleValidationErrors,
     createTask,
@@ -25,6 +27,7 @@ taskRouter
 taskRouter
   .route('/')
   .put(
+    protect,
     updateTaskValidator,
     handleValidationErrors,
     updateTask,
@@ -33,6 +36,7 @@ taskRouter
 taskRouter
   .route('/:id')
   .delete(
+    protect,
     deleteTaskValidator,
     handleValidationErrors,
     deleteTask,
