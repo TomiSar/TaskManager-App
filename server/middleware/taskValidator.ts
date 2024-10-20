@@ -54,8 +54,7 @@ export const createTaskValidator: ValidationChain[] = [
 
 export const updateTaskValidator: ValidationChain[] = [
   body('id')
-    .not()
-    .isEmpty()
+    .notEmpty()
     .withMessage('The task id is required')
     .trim()
     .isUUID()

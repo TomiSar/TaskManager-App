@@ -11,7 +11,7 @@ import { TaskCounter } from '../TaskCounter/TaskCounter';
 import { Task } from '../Task/Task';
 import { useMutation, useQuery } from 'react-query';
 import { sendApiRequest } from '../../api/apiRequest';
-import { API_URL } from '../../constants/constants';
+import { TASK_BASEURL } from '../../constants/constants';
 import { TaskGetRequest as AllTasks } from '../../interfaces/TaskGetRequest';
 import { TaskPutRequest as UpdatedTask } from '../../interfaces/TaskPutRequest';
 import { TaskStatusChangedContext } from '../../context';
@@ -26,7 +26,7 @@ export function TaskArea() {
     'tasks',
     async () => {
       return await sendApiRequest<AllTasks[]>(
-        API_URL,
+        TASK_BASEURL,
         'GET',
       );
     },
@@ -34,11 +34,11 @@ export function TaskArea() {
 
   const updateTaskMutation = useMutation(
     (data: UpdatedTask) =>
-      sendApiRequest(API_URL, 'PUT', data),
+      sendApiRequest(TASK_BASEURL, 'PUT', data),
   );
 
   const deleteTaskMutation = useMutation((id: string) =>
-    sendApiRequest<void>(`${API_URL}/${id}`, 'DELETE'),
+    sendApiRequest<void>(`${TASK_BASEURL}/${id}`, 'DELETE'),
   );
 
   function onStatusChangeHandler(

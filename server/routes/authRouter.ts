@@ -29,9 +29,9 @@ authRouter.post(
   loginUser,
 );
 authRouter.post('/auth/logout', logoutUser);
-authRouter.get('/all', protect, getAllUsers);
+authRouter.get('/auth/all', protect, getAllUsers);
 authRouter.get(
-  '/:id',
+  '/auth/:id',
   protect,
   getUserByIdValidator,
   handleValidationErrors,

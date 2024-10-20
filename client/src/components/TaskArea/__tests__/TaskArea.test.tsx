@@ -13,7 +13,7 @@ import {
 import { format } from 'date-fns';
 import { mockServer } from '../../../mocks/server';
 import { http, HttpResponse } from 'msw';
-import { API_URL } from '../../../constants/constants';
+import { TASK_BASEURL } from '../../../constants/constants';
 import { TaskStatusChangedContextProvider } from '../../../context';
 
 // Set up the mock server before all tests
@@ -98,7 +98,7 @@ describe('TaskArea Component', () => {
   test('renders empty task list correctly', async () => {
     // Override the default mock response to return an empty list
     mockServer.use(
-      http.get(API_URL, () => {
+      http.get(TASK_BASEURL, () => {
         return HttpResponse.json([], { status: 200 });
       }),
     );
@@ -228,7 +228,7 @@ describe('TaskArea Component', () => {
 
   it.skip('handles API error response correctly', async () => {
     mockServer.use(
-      http.get(API_URL, () => {
+      http.get(TASK_BASEURL, () => {
         return HttpResponse.json(
           { error: 'Internal Server Error' },
           { status: 500 },

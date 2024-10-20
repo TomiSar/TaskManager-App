@@ -102,6 +102,7 @@ const updateTask = async (
   try {
     task = await AppDataSource.getRepository(Task).findOne({
       where: { id },
+      relations: ['user'],
     });
 
     if (!task) {
@@ -118,9 +119,9 @@ const updateTask = async (
       return;
     }
   } catch (errors) {
-    res
-      .status(500)
-      .json({ error: 'Internal Server Error' });
+    res.status(500).json({
+      error: 'Internal Server Error',
+    });
     return;
   }
 
@@ -167,6 +168,7 @@ const deleteTask = async (
   try {
     task = await AppDataSource.getRepository(Task).findOne({
       where: { id },
+      relations: ['user'],
     });
 
     if (!task) {

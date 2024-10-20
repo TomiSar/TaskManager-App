@@ -17,7 +17,7 @@ import { TaskDescription } from './TaskDescription';
 import { TaskDate } from './TaskDate';
 import { TaskSelect } from './TaskSelect';
 import {
-  API_URL,
+  TASK_BASEURL,
   taskPriority,
   taskStatus,
 } from '../../constants/constants';
@@ -52,7 +52,7 @@ export function CreateTaskForm() {
 
   const createTaskMutation = useMutation(
     (data: CreateNewTask) =>
-      sendApiRequest(API_URL, 'POST', data),
+      sendApiRequest(TASK_BASEURL, 'POST', data),
   );
 
   function createTaskHandler() {

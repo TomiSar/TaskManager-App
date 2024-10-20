@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
-import { API_URL } from '../constants/constants';
+import { TASK_BASEURL } from '../constants/constants';
 import { Priority } from '../enums/Priority';
 import { Status } from '../enums/Status';
 
@@ -26,11 +26,11 @@ const mockTasks = [
 ];
 
 export const mockServer = setupServer(
-  http.get(API_URL, () => {
+  http.get(TASK_BASEURL, () => {
     return HttpResponse.json(mockTasks, { status: 200 });
   }),
 
-  http.delete(`${API_URL}/:id`, async ({ params }) => {
+  http.delete(`${TASK_BASEURL}/:id`, async ({ params }) => {
     const { id } = params;
     const index = mockTasks.findIndex(
       (task) => task.id === id,
@@ -43,7 +43,7 @@ export const mockServer = setupServer(
     }
   }),
 
-  http.put(API_URL, async ({ params }) => {
+  http.put(TASK_BASEURL, async ({ params }) => {
     const {
       id,
       status,
@@ -82,7 +82,7 @@ export const mockServer = setupServer(
   }),
 
   // Handler for 500 Internal Server Error
-  http.get(API_URL, async () => {
+  http.get(TASK_BASEURL, async () => {
     return HttpResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 },

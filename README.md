@@ -12,8 +12,8 @@
 - http://localhost:5000/api/users/auth/register (POST Register new user)
 - http://localhost:5000/api/users/auth/login (POST Login user)
 - http://localhost:5000/api/users/auth/logout (POST Logout user)
-- http://localhost:5000/api/users/{id} (GET User by id)
-- http://localhost:5000/api/users/all (GET All Users)
+- http://localhost:5000/api/users/auth/{id} (GET User by id)
+- http://localhost:5000/api/users/auth/all (GET All Users)
 
 ## Create react app, config ESLint (TypeScript)
 
@@ -54,6 +54,8 @@
 - yarn add @testing-library/jest-dom @testing-library/react @testing-library/user-event
 - yarn add -D @typescript-eslint/parser @typescript-eslint/eslint-plugin @types/jest
 - yarn add -D @testing-library/dom jest jest-environment-jsdom ts-jest ts-node typescript
+- yarn add react-router-dom
+- yarn add @types/react-router-dom
 
 ## Installation of needed Packages (npm or yarn)
 
