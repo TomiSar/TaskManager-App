@@ -68,7 +68,17 @@ const loginUser = async (
         id: user.id,
         email: user.email,
       });
-      res.status(200).json({ JWT: token });
+
+      // Set token to cookie
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 8 * 60 * 60 * 1000, // expires after 8 hours
+      });
+      res
+        .status(200)
+        .json({ message: 'User Login successful' });
     } else {
       res.status(401).json({
         message:
