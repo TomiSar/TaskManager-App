@@ -15,7 +15,7 @@ import { protect } from '../middleware/authMiddleware';
 
 export const taskRouter: Router = Router();
 
-taskRouter.route('/').get(protect, getAllTasks);
+taskRouter.route('/').get(getAllTasks);
 taskRouter
   .route('/')
   .post(

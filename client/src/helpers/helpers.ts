@@ -90,3 +90,21 @@ export const convertHexToRgbColor = (hex: string) => {
     ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})`
     : hex;
 };
+
+export const getJwtFromCookie = (name: string | null) => {
+  console.log('Checking cookie for:', name);
+  console.log('Document Cookie:', document.cookie);
+
+  // Match cookies using a RegExp
+  const match = document.cookie.match(
+    new RegExp(`(^| )${name}=([^;]+)`),
+  );
+
+  if (match) {
+    console.log('JWT Token Found:', match[2]);
+  } else {
+    console.log('JWT Token not found.');
+  }
+
+  return match ? match[2] : null;
+};

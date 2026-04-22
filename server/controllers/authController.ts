@@ -72,10 +72,12 @@ const loginUser = async (
       // Set token to cookie
       res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production', // Only in HTTPS
         sameSite: 'strict',
         maxAge: 8 * 60 * 60 * 1000, // expires after 8 hours
       });
+
+      console.debug('token:', token);
       res
         .status(200)
         .json({ message: 'User Login successful' });

@@ -238,17 +238,3 @@ export function Auth({ onLogin }: UserAuthProps) {
     </Box>
   );
 }
-
-// useEffect(() => {
-//   if (registerMutation.isSuccess) {
-//     setShowSuccess('User Registration successful!');
-//     setIsRegistering(false);
-//   }
-// }, [registerMutation.isSuccess]);
-
-// useEffect(() => {
-//   if (loginMutation.isSuccess) {
-//     setShowSuccess('User Login successful');
-//     navigate('/dashboard');
-//   }
-// }, [loginMutation.isSuccess, navigate, onLogin]);

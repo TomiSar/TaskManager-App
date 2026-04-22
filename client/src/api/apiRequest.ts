@@ -1,3 +1,5 @@
+import { getJwtFromCookie } from '../helpers/helpers';
+
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 function returnCorrectRequest(
@@ -5,9 +7,17 @@ function returnCorrectRequest(
   data: unknown,
   options?: RequestInit,
 ): RequestInit {
-  const headers = {
+  const jwt = getJwtFromCookie('token');
+
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
+
+  if (jwt) {
+    headers['Authorization'] = `Bearer ${jwt}`;
+  } else {
+    console.warn('JWT not found in cookies.');
+  }
 
   const requestConfig: RequestInit = {
     method,
